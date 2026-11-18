@@ -1,0 +1,65 @@
+{
+  "cookies": [
+    {
+      "name": ".Nop.Antiforgery",
+      "value": "CfDJ8EN0xHsVfMJBsketCaxh4NAPRPzj8SeZXX_tFVZk1WGzcUa8TFOgQ4DK_Z_e22OS41hJMaw-TEn5lyKFWC4QlYN4UbpU2n3pROBjmeLGvmhLSFs98La3BekuTlHOL-H0xXMN9_AtzI_VdhDNpJzngKU",
+      "domain": "localhost",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.825105261.1793167489",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1827727488.777583,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": ".Nop.Authentication",
+      "value": "CfDJ8EN0xHsVfMJBsketCaxh4NCjJVa2Gz17awuHVQX1bdpRjfViTFyfq5iuyNuu-fNE4fQeej986swc2dYGiQaQ8kw_6EWD_bWmGb58OQ0GOtzIIbT01hkxvAcJc9Ky3w9DYmGcKjZuhL1QGjP6x37g66NcuoQtQCyt1skAxL3IudEKO7NNacLJxsVzb7q-KbNoNBjMkuwzvo7aP9CSoxsJTQW3ep57fSRukeGvkDyJfZ6iZpkqMd8MMn7qVun_IUBpqrBr46nzwVGDVUJZT8cTPBuCJ2mxfWZK4kQHEyqDq3_lk2-xGI249AZcHWUd3fixFrd_Oilqpc5RRCPCFfw3j9VDGy4OdEJSFJ9nE-9zGO1EG6kPLSjYDvBTNO8OewT_Kx13cS_I30KXt9v473zvNob1Kv3dBuTbyxOHk4CuP79DpttCLqAqg3fARoNo78PsrPDV1oe7Rg2Nh4S1cPKNZzhzyZeq6PuZXffaQ3yt3ZrLWaXXZTJ5ogu3X2YOj6iPAvgGaHCAqT5ZPQsDEHlMFBCOq3ELhqF8NgePrZC2MJ0bG5Ge7MAkUn0Xl-NEz10B6VWlM9ogQjyQRIXjpBuuS74",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1794377090.966137,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_XXXXXXXXXX",
+      "value": "GS2.1.s1793167488$o1$g0$t1793167491$j57$l0$h0",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1827727491.009789,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": ".Nop.Culture",
+      "value": "c%3Den-US%7Cuic%3Den-US",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1824703492.450002,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": ".Nop.Customer",
+      "value": "16c223bb-41b0-4edb-8e8c-c898e5bd7f27",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1824703492.490602,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}
