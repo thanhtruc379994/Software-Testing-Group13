@@ -1,5 +1,5 @@
 // @ts-check
-const { test, expect } = require('../../fixtures');
+const { test, expect } = require('../fixtures');
 
 // Biến đường dẫn web (Base URL)
 const BASE_URL = 'https://demo.nopcommerce.com';

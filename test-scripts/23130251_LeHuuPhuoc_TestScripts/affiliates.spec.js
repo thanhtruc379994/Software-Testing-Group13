@@ -1,6 +1,6 @@
 // @ts-check
-const { test, expect } = require('../../fixtures');
-const { gotoAffiliates, resetSearchAffiliates } = require('../admin_helpers');
+const { test, expect } = require('../fixtures');
+const { gotoAffiliates, resetSearchAffiliates } = require('./admin_helpers');
 
 // Biến đường dẫn web (Base URL)
 const BASE_URL = 'https://admin-demo.nopcommerce.com';
