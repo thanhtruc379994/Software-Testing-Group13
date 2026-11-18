@@ -12,5 +12,8 @@ module.exports = defineConfig({
     },
     workers: 1,
     fullyParallel: false,
-    reporter: 'list'
+    reporter: [
+        ['list'],
+        ['html', { open: 'always' }] // Tự động bật trình duyệt hiển thị báo cáo ngay khi chạy xong
+    ]
 });
