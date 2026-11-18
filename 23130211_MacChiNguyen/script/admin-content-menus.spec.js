@@ -1,8 +1,11 @@
 const { test, expect } = require('../../fixtures');
 
+const ADMIN_URL = 'https://admin-demo.nopcommerce.com';
+const STORE_URL = 'https://demo.nopcommerce.com';
+
 test.describe('Admin Content Menus View', () => {
     test('CONTENT_Menu_View_01: Kiem tra mo trang Menus tu menu Content management', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -37,7 +40,7 @@ test.describe('Admin Content Menus View', () => {
             await expect(activeMenuItem).toBeVisible();
         });
     test('CONTENT_Menu_View_02: Kiem tra cac cot cua luoi Menus', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -60,7 +63,7 @@ test.describe('Admin Content Menus View', () => {
             expect(count).toBeGreaterThan(0);
         });
     test('CONTENT_Menu_View_03: Kiem tra du lieu mac dinh trong luoi Menus', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -83,7 +86,7 @@ test.describe('Admin Content Menus View', () => {
             expect(await editBtns.count()).toBeGreaterThan(0);
         });
     test('CONTENT_Menu_View_04: Kiem tra thanh phan trang va thong tin so ban ghi', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -106,7 +109,7 @@ test.describe('Admin Content Menus View', () => {
             await expect(refreshBtn).toBeVisible();
         });
     test('CONTENT_Menu_View_05: Kiem tra lien ket Learn more about menus', async ({ page, context }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -135,7 +138,7 @@ test.describe('Admin Content Menus View', () => {
 
 test.describe('Admin Content Menus Add', () => {
     test('CONTENT_Menu_Add_01: Kiem tra click Add new mo trang them menu', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -153,7 +156,7 @@ test.describe('Admin Content Menus Add', () => {
             await expect(page.locator('button[name="save"], button:has-text("Save")').first()).toBeVisible();
         });
     test('CONTENT_Menu_Add_02: Kiem tra them menu Footer voi thong tin hop le', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/Create', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/Create`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -184,7 +187,7 @@ test.describe('Admin Content Menus Add', () => {
             await expect(alertEl).toBeVisible({ timeout: 10000 });
         });
     test('CONTENT_Menu_Add_03: Kiem tra them menu bang Save and Continue Edit', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/Create', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/Create`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -209,7 +212,7 @@ test.describe('Admin Content Menus Add', () => {
             await expect(alertEl).toBeVisible({ timeout: 10000 });
         });
     test('CONTENT_Menu_Add_05: Kiem tra them menu voi Published tat', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/Create', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/Create`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -233,7 +236,7 @@ test.describe('Admin Content Menus Add', () => {
             await expect(alertEl).toBeVisible({ timeout: 10000 });
         });
     test('CONTENT_Menu_Add_06: Kiem tra de trong Name khi luu', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/Create', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/Create`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -251,7 +254,7 @@ test.describe('Admin Content Menus Add', () => {
         });
     test('CONTENT_Menu_Add_07: Kiem tra ten menu trung voi menu da co', async ({ page }) => {
         expect(true, 'Defect: Sai giá trị mong đợi theo kịch bản test (CONTENT_Menu_Add_07)').toBe(false);
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/Create', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/Create`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -273,7 +276,7 @@ test.describe('Admin Content Menus Add', () => {
                 await dialog.accept().catch(() => {});
             });
 
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/Create', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/Create`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -284,7 +287,7 @@ test.describe('Admin Content Menus Add', () => {
             await expect(nameInput).toBeVisible({ timeout: 15000 });
             await nameInput.fill(cancelName);
 
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
 
             const gridTable = page.locator('#menus-grid, table.dataTable').first();
             await expect(gridTable).toBeVisible({ timeout: 15000 });
@@ -296,7 +299,7 @@ test.describe('Admin Content Menus Add', () => {
 
 test.describe('Admin Content Menus Edit', () => {
     test('CONTENT_Menu_Edit_01: Kiem tra click Edit mo dung menu', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -315,11 +318,11 @@ test.describe('Admin Content Menus Edit', () => {
             const nameInput = page.locator('#Name, input[name="Name"]').first();
             await expect(nameInput).toBeVisible();
 
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             await expect(page).toHaveURL(/Admin\/Menu\/List/i);
         });
     test('CONTENT_Menu_Edit_02: Kiem tra sua Name cua menu va luu', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -343,7 +346,7 @@ test.describe('Admin Content Menus Edit', () => {
         });
     test('CONTENT_Menu_Edit_03: Kiem tra doi Menu type cua menu', async ({ page }) => {
         expect(true, 'Defect: Sai giá trị mong đợi theo kịch bản test (CONTENT_Menu_Edit_03)').toBe(false);
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -372,7 +375,7 @@ test.describe('Admin Content Menus Edit', () => {
             await expect(alertEl).toBeVisible({ timeout: 10000 });
         });
     test('CONTENT_Menu_Edit_04: Kiem tra xoa trong Name khi sua', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -397,7 +400,7 @@ test.describe('Admin Content Menus Edit', () => {
 
 test.describe('Admin Content Menus Delete', () => {
     test('CONTENT_Menu_Delete_01: Kiem tra huy xoa menu o hop thoai xac nhan', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -421,7 +424,7 @@ test.describe('Admin Content Menus Delete', () => {
             await expect(deleteBtn).toBeVisible();
         });
     test('CONTENT_Menu_Delete_02: Kiem tra xoa menu do minh tao', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -447,7 +450,7 @@ test.describe('Admin Content Menus Delete', () => {
             await expect(alertEl).toBeVisible({ timeout: 10000 });
         });
     test('CONTENT_Menu_Delete_03: Kiem tra menu da xoa khong con o cua hang', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
             const footer = page.locator('.footer, footer').first();
             await expect(footer).toBeVisible({ timeout: 15000 });
 
@@ -458,7 +461,7 @@ test.describe('Admin Content Menus Delete', () => {
 
 test.describe('Admin Content Menus Grid', () => {
     test('CONTENT_Menu_Grid_01: Kiem tra cac lua chon so dong moi trang Show items', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -478,7 +481,7 @@ test.describe('Admin Content Menus Grid', () => {
             expect(currentValue).toBe('15');
         });
     test('CONTENT_Menu_Grid_02: Kiem tra doi so dong moi trang khi so ban ghi it hon', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -518,7 +521,7 @@ test.describe('Admin Content Menus Grid', () => {
         });
     test('CONTENT_Menu_Grid_03: Kiem tra Previous va Next khi chi co 1 trang', async ({ page }) => {
         expect(true, 'Defect: Sai giá trị mong đợi theo kịch bản test (CONTENT_Menu_Grid_03)').toBe(false);
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -554,7 +557,7 @@ test.describe('Admin Content Menus Grid', () => {
 
 test.describe('Admin Content Menus Item', () => {
     test('CONTENT_Menu_Item_01: Kiem tra trang Edit hien thi phan quan ly cac muc cua menu', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -573,7 +576,7 @@ test.describe('Admin Content Menus Item', () => {
             expect(isSectionVisible || isAddBtnVisible).toBeTruthy();
         });
     test('CONTENT_Menu_Item_02: Kiem tra them mot muc vao menu', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -605,7 +608,7 @@ test.describe('Admin Content Menus Item', () => {
             await expect(feedback).toBeVisible();
         });
     test('CONTENT_Menu_Item_03: Kiem tra them muc menu khi de trong Title', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -641,7 +644,7 @@ test.describe('Admin Content Menus Item', () => {
 
 test.describe('Admin Content Menus Setting', () => {
     test('CONTENT_Menu_Setting_01: Kiem tra menu Footer da Published hien thi o chan trang cua hang', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
             const footer = page.locator('.footer, footer').first();
             await expect(footer).toBeVisible({ timeout: 15000 });
 
@@ -650,7 +653,7 @@ test.describe('Admin Content Menus Setting', () => {
             expect(count).toBeGreaterThan(0);
         });
     test('CONTENT_Menu_Setting_02: Kiem tra tat Published menu bien mat o cua hang', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -674,7 +677,7 @@ test.describe('Admin Content Menus Setting', () => {
             const alertEl = page.locator('.alert-success, .alert:has-text("successfully"), .alert:has-text("security purposes"), #admin-notifications .alert, .alert').first();
             await expect(alertEl).toBeVisible({ timeout: 10000 });
 
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
             const footer = page.locator('.footer, footer').first();
             await expect(footer).toBeVisible();
         });
@@ -682,7 +685,7 @@ test.describe('Admin Content Menus Setting', () => {
 
 test.describe('Admin Content Menus Security', () => {
     test('CONTENT_Menu_Security_01: Kiem tra truy cap trang Menus khi chua dang nhap admin', async ({ page }) => {
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -698,7 +701,7 @@ test.describe('Admin Content Menus Security', () => {
 test.describe('Admin Content Menus GUI', () => {
     test('CONTENT_Menu_GUI_01: Kiem tra layout trang Menus tren may tinh', async ({ page }) => {
             await page.setViewportSize({ width: 1280, height: 800 });
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');
@@ -725,7 +728,7 @@ test.describe('Admin Content Menus GUI', () => {
         });
     test('CONTENT_Menu_GUI_02: Kiem tra layout trang Menus tren man hinh nho', async ({ page }) => {
             await page.setViewportSize({ width: 375, height: 667 });
-            await page.goto('https://admin-demo.nopcommerce.com/Admin/Menu/List', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
             if (page.url().includes('login')) {
                 await page.locator('button[type="submit"], button:has-text("Log in")').click();
                 await page.waitForLoadState('domcontentloaded');

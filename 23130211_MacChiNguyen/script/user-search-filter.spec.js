@@ -1,8 +1,10 @@
 const { test, expect } = require('../../fixtures');
 
+const STORE_URL = 'https://demo.nopcommerce.com';
+
 test.describe('Search View', () => {
     test('SEARCH_View_01: Kiem tra mo trang chu va quan sat o Search store tren header', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const logo = page.locator('.header-logo, #small-searchterms').first();
             await expect(logo).toBeVisible({ timeout: 15000 });
@@ -18,10 +20,10 @@ test.describe('Search View', () => {
             await expect(searchButton).toBeVisible();
         });
     test('SEARCH_View_03: Kiem tra gia tri mac dinh cua trang Search khi moi mo', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             await page.locator('#small-searchterms').waitFor({ state: 'visible', timeout: 30000 });
-            await page.goto('https://demo.nopcommerce.com/search', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/search`, { waitUntil: 'domcontentloaded' });
 
             await expect(page).toHaveURL(/.*\/search/);
             await expect(page.locator('.page-title h1, h1')).toContainText('Search');
@@ -41,7 +43,7 @@ test.describe('Search View', () => {
 
 test.describe('Search Action', () => {
     test('SEARCH_Action_01: Kiem tra nhan phim Enter thay cho nut Search', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const searchInput = page.locator('#small-searchterms');
             await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -56,7 +58,7 @@ test.describe('Search Action', () => {
             await expect(productItem.first()).toBeVisible({ timeout: 15000 });
         });
     test('SEARCH_Action_02: Kiem tra tim tu o Search keyword tren trang Search', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const footerSearchLink = page.locator('.footer a[href="/search"]');
             await footerSearchLink.scrollIntoViewIfNeeded();
@@ -83,7 +85,7 @@ test.describe('Search Action', () => {
 
 test.describe('Search Keyword', () => {
     test('SEARCH_Keyword_01: Kiem tra tim theo ten san pham day du', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const keyword = 'Apple iPhone 16 128GB';
             const searchInput = page.locator('#small-searchterms');
@@ -108,7 +110,7 @@ test.describe('Search Keyword', () => {
             await expect(productItem.first().locator('.actual-price')).toBeVisible();
         });
     test('SEARCH_Keyword_02: Kiem tra tim iphone hien thi dung san pham va gia', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const currencySelect = page.locator('#customerCurrency');
             if (await currencySelect.isVisible().catch(() => false)) {
@@ -137,7 +139,7 @@ test.describe('Search Keyword', () => {
             await expect(page.locator('.warning-text, .search-results .warning, .message-error')).toBeHidden();
         });
     test('SEARCH_Keyword_03: Kiem tra tim theo mot phan ten san pham', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const keyword = 'MacBook';
             const searchInput = page.locator('#small-searchterms');
@@ -165,7 +167,7 @@ test.describe('Search Keyword', () => {
             let previousTitles = [];
 
             for (const keyword of keywords) {
-                await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+                await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
                 const searchInput = page.locator('#small-searchterms');
                 await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -190,7 +192,7 @@ test.describe('Search Keyword', () => {
         });
     test('SEARCH_Keyword_12: Kiem tra tim bang tieng Viet co dau', async ({ page }) => {
         expect(true, 'Defect: Sai giá trị mong đợi theo kịch bản test (SEARCH_Keyword_12)').toBe(false);
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const searchInput = page.locator('#small-searchterms');
             await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -215,7 +217,7 @@ test.describe('Search Keyword', () => {
 
 test.describe('Search Autocomplete', () => {
     test('SEARCH_Auto_01: Kiem tra go tu khoa 3 ky tu - hien thi danh sach goi y', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const searchInput = page.locator('#small-searchterms');
             await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -227,7 +229,7 @@ test.describe('Search Autocomplete', () => {
             await expect(autocompleteList).toContainText('MacBook');
         });
     test('SEARCH_Auto_02: Kiem tra go tu khoa 2 ky tu - khong hien thi goi y', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const searchInput = page.locator('#small-searchterms');
             await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -240,7 +242,7 @@ test.describe('Search Autocomplete', () => {
         });
     test('SEARCH_Auto_03: Kiem tra so luong goi y toi da', async ({ page }) => {
         expect(true, 'Defect: Sai giá trị mong đợi theo kịch bản test (SEARCH_Auto_03)').toBe(false);
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const searchInput = page.locator('#small-searchterms');
             await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -259,7 +261,7 @@ test.describe('Search Autocomplete', () => {
 
 test.describe('Search Advanced', () => {
     test('SEARCH_Adv_01: Kiem tra tick Advanced search hien thi du dieu kien loc', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/search', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/search`, { waitUntil: 'domcontentloaded' });
 
             const advCheckbox = page.locator('#advs');
             await advCheckbox.waitFor({ state: 'visible', timeout: 30000 });
@@ -277,7 +279,7 @@ test.describe('Search Advanced', () => {
             }
         });
     test('SEARCH_Adv_02: Kiem tra bo tick Advanced search - an dieu kien nang cao', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/search', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/search`, { waitUntil: 'domcontentloaded' });
 
             const advCheckbox = page.locator('#advs');
             await advCheckbox.waitFor({ state: 'visible', timeout: 30000 });
@@ -292,7 +294,7 @@ test.describe('Search Advanced', () => {
             await expect(page.locator('#pt')).toBeHidden();
         });
     test('SEARCH_Adv_03: Kiem tra tim theo Category', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/search', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/search`, { waitUntil: 'domcontentloaded' });
 
             const advCheckbox = page.locator('#advs');
             await advCheckbox.waitFor({ state: 'visible', timeout: 30000 });
@@ -317,7 +319,7 @@ test.describe('Search Advanced', () => {
         });
     test('SEARCH_Adv_09: Kiem tra nhap khoang gia From lon hon To', async ({ page }) => {
         expect(true, 'Defect: Sai giá trị mong đợi theo kịch bản test (SEARCH_Adv_09)').toBe(false);
-            await page.goto('https://demo.nopcommerce.com/search', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/search`, { waitUntil: 'domcontentloaded' });
 
             const advCheckbox = page.locator('#advs');
             await advCheckbox.waitFor({ state: 'visible', timeout: 30000 });
@@ -332,7 +334,7 @@ test.describe('Search Advanced', () => {
                 await page.locator('button.search-button').click();
                 await page.waitForLoadState('domcontentloaded');
             } else {
-                await page.goto('https://demo.nopcommerce.com/search?q=apple&price=1000-100', { waitUntil: 'domcontentloaded' });
+                await page.goto(`${STORE_URL}/search?q=apple&price=1000-100`, { waitUntil: 'domcontentloaded' });
             }
 
             await expect(page.locator('.no-result, .warning-text, .search-results, .products-container').first()).toBeVisible({ timeout: 15000 });
@@ -342,7 +344,7 @@ test.describe('Search Advanced', () => {
 
 test.describe('Search Price Filter', () => {
     test('SEARCH_Price_01: Kiem tra thanh trượt Filter by price hien thi tren trang ket qua', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/search?q=apple', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/search?q=apple`, { waitUntil: 'domcontentloaded' });
 
             const priceBlock = page.locator('.product-filters, .block-filter, .side-2').filter({ hasText: /price/i }).first();
             await expect(priceBlock).toBeVisible({ timeout: 15000 });
@@ -354,7 +356,7 @@ test.describe('Search Price Filter', () => {
             await expect(handles).toHaveCount(2);
         });
     test('SEARCH_Price_02: Kiem tra keo tay cam phai xuong - an san pham vuot gia', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/search?q=apple', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/search?q=apple`, { waitUntil: 'domcontentloaded' });
 
             const searchKeywordInput = page.locator('#q');
             await expect(searchKeywordInput).toHaveValue('apple');
@@ -380,7 +382,7 @@ test.describe('Search Price Filter', () => {
         });
     test('SEARCH_Price_07: Kiem tra dua thanh trượt ve hai dau de bo loc gia', async ({ page }) => {
         expect(true, 'Defect: Sai giá trị mong đợi theo kịch bản test (SEARCH_Price_07)').toBe(false);
-            await page.goto('https://demo.nopcommerce.com/search?q=apple', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/search?q=apple`, { waitUntil: 'domcontentloaded' });
 
             const initialCount = await page.locator('.product-item').count();
             expect(initialCount).toBeGreaterThan(0);
@@ -418,7 +420,7 @@ test.describe('Search Price Filter', () => {
 
 test.describe('Search Sort', () => {
     test('SEARCH_Sort_01: Kiem tra cac tieu chi trong o Sort by tren trang ket qua', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/search?q=apple', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/search?q=apple`, { waitUntil: 'domcontentloaded' });
 
             const sortSelect = page.locator('#products-orderby');
             await expect(sortSelect).toBeVisible({ timeout: 15000 });
@@ -433,7 +435,7 @@ test.describe('Search Sort', () => {
             expect(optionTexts).toContain('Created on');
         });
     test('SEARCH_Sort_02: Kiem tra sap xep theo Name: A to Z', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/search?q=apple', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/search?q=apple`, { waitUntil: 'domcontentloaded' });
 
             const sortSelect = page.locator('#products-orderby');
             await expect(sortSelect).toBeVisible({ timeout: 15000 });
@@ -446,7 +448,7 @@ test.describe('Search Sort', () => {
             expect(productTitles.length).toBeGreaterThan(0);
         });
     test('SEARCH_Sort_04: Kiem tra sap xep theo Price: Low to High', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/search?q=apple', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/search?q=apple`, { waitUntil: 'domcontentloaded' });
 
             const sortSelect = page.locator('#products-orderby');
             await expect(sortSelect).toBeVisible({ timeout: 15000 });
@@ -463,7 +465,7 @@ test.describe('Search Sort', () => {
 
 test.describe('Search Result', () => {
     test('SEARCH_Result_01: Kiem tra hien thi dung thong tin moi san pham trong ket qua', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const searchInput = page.locator('#small-searchterms');
             await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -485,7 +487,7 @@ test.describe('Search Result', () => {
             await expect(product.locator('button.add-to-wishlist-button')).toBeVisible();
         });
     test('SEARCH_Result_02: Kiem tra click ten hoac anh san pham mo dung trang chi tiet', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const searchInput = page.locator('#small-searchterms');
             await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -510,7 +512,7 @@ test.describe('Search Result', () => {
             await expect(page.locator('.product-name h1, h1')).toContainText('Apple iPhone 16 128GB');
         });
     test('SEARCH_Result_03: Kiem tra tu khoa duoc giu trong o tim kiem sau khi tim', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const searchInput = page.locator('#small-searchterms');
             await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -526,7 +528,7 @@ test.describe('Search Result', () => {
 
 test.describe('Search Invalid', () => {
     test('SEARCH_Invalid_01: Kiem tra de trong tu khoa roi click Search', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const searchInput = page.locator('#small-searchterms');
             await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -542,13 +544,13 @@ test.describe('Search Invalid', () => {
             await page.locator('button.search-box-button').click();
             await page.waitForTimeout(1000);
 
-            expect(page.url()).toContain('demo.nopcommerce.com');
+            expect(page.url()).toContain(new URL(STORE_URL).host);
             if (dialogMessage) {
                 expect(dialogMessage.toLowerCase()).toContain('please enter some search keyword');
             }
         });
     test('SEARCH_Invalid_05: Kiem tra tim voi tu khoa khong co san pham khop', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const keyword = 'xyzabc123';
             const searchInput = page.locator('#small-searchterms');
@@ -570,7 +572,7 @@ test.describe('Search Invalid', () => {
 
 test.describe('Search Security', () => {
     test('SEARCH_Security_01: Kiem tra tim voi chuoi SQL injection', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const sqlPayload = "' OR 1=1 --";
             const searchInput = page.locator('#small-searchterms');
@@ -588,7 +590,7 @@ test.describe('Search Security', () => {
             await expect(isProtected).toBeVisible({ timeout: 15000 });
         });
     test('SEARCH_Security_02: Kiem tra tim voi doan ma script XSS', async ({ page }) => {
-            await page.goto('https://demo.nopcommerce.com/', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/`, { waitUntil: 'domcontentloaded' });
 
             const xssPayload = '<script>alert(1)</script>';
             const searchInput = page.locator('#small-searchterms');
@@ -620,7 +622,7 @@ test.describe('Search Security', () => {
 test.describe('Search GUI', () => {
     test('SEARCH_GUI_01: Kiem tra layout trang Search tren may tinh', async ({ page }) => {
             await page.setViewportSize({ width: 1280, height: 800 });
-            await page.goto('https://demo.nopcommerce.com/search?q=iphone', { waitUntil: 'domcontentloaded' });
+            await page.goto(`${STORE_URL}/search?q=iphone`, { waitUntil: 'domcontentloaded' });
 
             const searchInput = page.locator('#small-searchterms, #q').first();
             await expect(searchInput).toBeVisible({ timeout: 15000 });
