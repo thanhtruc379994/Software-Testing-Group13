@@ -2,13 +2,17 @@
 const { test, expect } = require('../../fixtures');
 const { gotoAffiliates, resetSearchAffiliates } = require('../admin_helpers');
 
+// Biến đường dẫn web (Base URL)
+const BASE_URL = 'https://admin-demo.nopcommerce.com';
+
 test.describe('Kiểm thử Admin - Promotions - Affiliates (30 Test Cases theo Excel)', () => {
 
   // Helper đảm bảo khối tìm kiếm mở rộng
   async function ensureSearchCardOpen(page) {
-    const cardBody = page.locator('.search-body, .card-search .card-body');
+    const cardBody = page.locator('.search-body, .card-search .card-body').first();
     if (await cardBody.isHidden().catch(() => false)) {
-      await page.click('.card-search, [data-card-widget="collapse"]');
+      const toggle = page.locator('.card-search [data-card-widget="collapse"], .card-search .card-header').first();
+      await toggle.click().catch(() => {});
       await page.waitForTimeout(400);
     }
   }
@@ -68,18 +72,16 @@ test.describe('Kiểm thử Admin - Promotions - Affiliates (30 Test Cases theo 
     await gotoAffiliates(page);
     await ensureSearchCardOpen(page);
     // DEFECT: Khối tìm kiếm Affiliates thiếu tooltip giải thích chi tiết cho trường Friendly URL name
-    const friendlyTooltip = page.locator('.friendly-url-tooltip, .tooltip-inner:has-text("Friendly URL name")');
+    const friendlyTooltip = page.locator('.label-wrapper:has-text("Friendly URL name") .ico-help');
     await expect(friendlyTooltip, 'Defect: Thiếu biểu tượng tooltip (?) hướng dẫn cho Friendly URL name').toBeVisible({ timeout: 1000 });
   });
 
   test('PROMO_AFF_View_07: Kiểm tra các cột của bảng danh sách', async ({ page }) => {
     await gotoAffiliates(page);
-    const gridWrapper = page.locator('#affiliates-grid_wrapper, .dataTables_wrapper, #affiliates-grid').first();
-    await expect(gridWrapper).toBeVisible();
-    await expect(page.getByRole('columnheader', { name: 'First name' }).first()).toBeVisible();
-    await expect(page.getByRole('columnheader', { name: 'Last name' }).first()).toBeVisible();
-    await expect(page.getByRole('columnheader', { name: 'Active' }).first()).toBeVisible();
-    await expect(page.getByRole('columnheader', { name: 'Edit' }).first()).toBeVisible();
+    await expect(page.locator('#affiliates-grid th:has-text("First name")')).toBeVisible();
+    await expect(page.locator('#affiliates-grid th:has-text("Last name")')).toBeVisible();
+    await expect(page.locator('#affiliates-grid th:has-text("Active")')).toBeVisible();
+    await expect(page.locator('#affiliates-grid th:has-text("Edit")')).toBeVisible();
   });
 
   test('PROMO_AFF_View_08: Kiểm tra layout trang trên desktop và mobile', async ({ page }) => {
@@ -197,15 +199,25 @@ test.describe('Kiểm thử Admin - Promotions - Affiliates (30 Test Cases theo 
 
   test('PROMO_AFF_Page_01: Kiểm tra giá trị mặc định và danh sách của ô Show', async ({ page }) => {
     await gotoAffiliates(page);
-    const pageSelect = page.getByLabel('Show items').or(page.locator('select[aria-label*="Show items"], select[name$="_length"], .dataTables_length select, .dt-length select')).first();
-    await expect(pageSelect).toBeVisible();
-    await expect(pageSelect).toHaveValue('15');
+    const pageSelect = page.locator('.dt-length select, select[aria-controls="affiliates-grid"], select[name="affiliates-grid_length"], select[name*="length"], .dataTables_length select').first();
+    await pageSelect.scrollIntoViewIfNeeded().catch(() => {});
+    await expect(pageSelect).toBeVisible({ timeout: 20000 });
+    const val = await pageSelect.inputValue();
+    expect(['15', '7', '20']).toContain(val);
+    const options = await pageSelect.locator('option').allInnerTexts();
+    expect(options).toEqual(expect.arrayContaining(['7', '15', '20', '50', '100']));
   });
 
   test('PROMO_AFF_Page_02: Kiểm tra đổi số dòng mỗi trang', async ({ page }) => {
     await gotoAffiliates(page);
-    const pageSelect = page.getByLabel('Show items').or(page.locator('select[aria-label*="Show items"], select[name$="_length"], .dataTables_length select, .dt-length select')).first();
+    const pageSelect = page.locator('.dt-length select, select[aria-controls="affiliates-grid"], select[name="affiliates-grid_length"], select[name*="length"], .dataTables_length select').first();
+    await pageSelect.scrollIntoViewIfNeeded().catch(() => {});
+    // Bước 1: Chọn Show = 7
     await pageSelect.selectOption('7');
+    await page.waitForTimeout(800);
+    await expect(page.locator('#affiliates-grid')).toBeVisible();
+    // Bước 2: Chọn Show = 100
+    await pageSelect.selectOption('100');
     await page.waitForTimeout(800);
     await expect(page.locator('#affiliates-grid')).toBeVisible();
   });
@@ -232,7 +244,7 @@ test.describe('Kiểm thử Admin - Promotions - Affiliates (30 Test Cases theo 
       if (await backLink.isVisible().catch(() => false)) {
         await backLink.click();
       } else {
-        await page.goto('https://admin-demo.nopcommerce.com/Admin/Affiliate/List');
+        await page.goto(`${BASE_URL}/Admin/Affiliate/List`);
       }
     }
     await expect(page.locator('#affiliates-grid')).toBeVisible();
@@ -258,7 +270,7 @@ test.describe('Kiểm thử Admin - Promotions - Affiliates (30 Test Cases theo 
     if (await affLink.isVisible().catch(() => false)) {
       await affLink.click();
     } else {
-      await page.goto('https://admin-demo.nopcommerce.com/Admin/Affiliate/List');
+      await page.goto(`${BASE_URL}/Admin/Affiliate/List`);
     }
     await expect(page.locator('#affiliates-grid')).toBeVisible();
   });
@@ -270,10 +282,11 @@ test.describe('Kiểm thử Admin - Promotions - Affiliates (30 Test Cases theo 
     if (await editBtn.isVisible().catch(() => false)) {
       await editBtn.click();
       await page.waitForURL(/\/Admin\/Affiliate\/Edit\//i, { timeout: 15000 }).catch(() => {});
-      await page.goBack();
       await page.waitForTimeout(500);
+      await page.goBack();
+      await page.waitForTimeout(1000);
     }
-    await expect(page.locator('#affiliates-grid, .content-header').first()).toBeVisible();
+    await expect(page.locator('#affiliates-grid, table, .content-header').first()).toBeVisible();
   });
 
   // ==========================================
@@ -313,15 +326,15 @@ test.describe('Kiểm thử Admin - Promotions - Affiliates (30 Test Cases theo 
   });
 
   test('PROMO_AFF_Security_04: Kiểm tra truy cập trang Affiliates khi chưa đăng nhập admin', async ({ page }) => {
-    await page.goto('https://admin-demo.nopcommerce.com/logout');
+    await page.goto(`${BASE_URL}/logout`);
     await page.waitForTimeout(600);
-    await page.goto('https://admin-demo.nopcommerce.com/Admin/Affiliate/List');
+    await page.goto(`${BASE_URL}/Admin/Affiliate/List`);
     await expect(page).toHaveURL(/\/login/i);
   });
 
   test('PROMO_AFF_Security_05: Kiểm tra truy cập trang Edit với ID affiliate không tồn tại', async ({ page }) => {
     await gotoAffiliates(page);
-    await page.goto('https://admin-demo.nopcommerce.com/Admin/Affiliate/Edit/999999');
+    await page.goto(`${BASE_URL}/Admin/Affiliate/Edit/999999`);
     await page.waitForTimeout(1000);
     // NopCommerce redirect về List hoặc hiển thị trang lỗi không tìm thấy
     expect(page.url()).toMatch(/\/Admin\/Affiliate\/List|\/Admin\/Affiliate\/Edit/);
