@@ -62,14 +62,14 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 1. cust_role_01: Kiểm tra hiển thị màn hình danh sách vai trò
-  test('cust_role_01: Kiểm tra hiển thị màn hình danh sách vai trò [PASS]', async ({ page }) => {
+  test('cust_role_01: Hiển thị trang danh sách vai trò khách hàng (Customer roles) [PASS]', async ({ page }) => {
     await handleCloudflare(page);
     await expect(page.locator('.content-header')).toContainText('Customer roles');
     await expect(page.locator('#customerroles-grid')).toBeVisible();
   });
 
   // 2. cust_role_02: Kiểm tra các cột dữ liệu hiển thị
-  test('cust_role_02: Kiểm tra các cột dữ liệu hiển thị [PASS]', async ({ page }) => {
+  test('cust_role_02: Hiển thị đủ 5 cột dữ liệu (Name, Free shipping, Tax exempt, Active, Is system role) [PASS]', async ({ page }) => {
     await handleCloudflare(page);
     const visibleHeaders = page.locator('th:visible');
     await expect(visibleHeaders.filter({ hasText: /^Name$/ })).toBeVisible();
@@ -80,7 +80,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 3. cust_role_03: Kiểm tra hiển thị form thêm mới vai trò
-  test('cust_role_03: Kiểm tra hiển thị form thêm mới vai trò [PASS]', async ({ page }) => {
+  test('cust_role_03: Điều hướng mở form tạo mới vai trò khách hàng [PASS]', async ({ page }) => {
     await page.locator('a.btn-primary:has-text("Add new")').click();
     await handleCloudflare(page);
     await expect(page.locator('.content-header')).toContainText('Add a new customer role');
@@ -88,7 +88,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 4. cust_role_04: Kiểm tra thêm mới vai trò thành công (Happy Path)
-  test('cust_role_04: Kiểm tra thêm mới vai trò thành công [PASS]', async ({ page }) => {
+  test('cust_role_04: Tạo mới vai trò thành công với thông tin hợp lệ [PASS]', async ({ page }) => {
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
     await handleCloudflare(page);
 
@@ -101,7 +101,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 5. cust_role_05: Kiểm tra để trống Tên vai trò
-  test('cust_role_05: Kiểm tra để trống Tên vai trò [PASS]', async ({ page }) => {
+  test('cust_role_05: Báo lỗi bắt buộc khi để trống Tên vai trò (Name required) [PASS]', async ({ page }) => {
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
     await handleCloudflare(page);
 
@@ -115,7 +115,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 6. cust_role_06: Kiểm tra giới hạn độ dài Tên vai trò (> 255 ký tự) [FAILED - Bug Intentional]
-  test('cust_role_06: Kiểm tra giới hạn độ dài Tên vai trò (> 255 ký tự) [FAILED - Bug Intentional]', async ({ page }) => {
+  test('cust_role_06: Kiểm tra giới hạn độ dài Tên vai trò (maxlength = 255 ở Client) [FAILED - Bug Intentional]', async ({ page }) => {
     // Expected Output: Trường Name phải có thuộc tính giới hạn maxlength="255" để ngăn người dùng nhập quá ký tự ở client
     // Thực tế Bug: Form không có thuộc tính maxlength ở thẻ input
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
@@ -125,7 +125,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 7. cust_role_07: Kiểm tra thêm mới vai trò trùng tên [FAILED - Bug Intentional]
-  test('cust_role_07: Kiểm tra thêm mới vai trò trùng tên [FAILED - Bug Intentional]', async ({ page }) => {
+  test('cust_role_07: Chặn tạo mới vai trò có tên trùng lặp với vai trò đã tồn tại [FAILED - Bug Intentional]', async ({ page }) => {
     // Expected Output: Báo lỗi tên đã tồn tại
     // Thực tế: nopCommerce không chặn trùng tên hiển thị
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
@@ -139,7 +139,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 8. cust_role_08: Kiểm tra cấu hình thuộc tính 'Free shipping'
-  test('cust_role_08: Kiểm tra cấu hình thuộc tính Free shipping [PASS]', async ({ page }) => {
+  test('cust_role_08: Cấu hình thuộc tính Miễn phí vận chuyển (Free shipping) cho vai trò [PASS]', async ({ page }) => {
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
     await handleCloudflare(page);
 
@@ -155,7 +155,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 9. cust_role_09: Kiểm tra cấu hình thuộc tính 'Tax exempt'
-  test('cust_role_09: Kiểm tra cấu hình thuộc tính Tax exempt [PASS]', async ({ page }) => {
+  test('cust_role_09: Cấu hình thuộc tính Miễn thuế (Tax exempt) cho vai trò [PASS]', async ({ page }) => {
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
     await handleCloudflare(page);
 
@@ -170,7 +170,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 10. cust_role_10: Kiểm tra cấu hình thuộc tính 'Active'
-  test('cust_role_10: Kiểm tra cấu hình thuộc tính Active [PASS]', async ({ page }) => {
+  test('cust_role_10: Cấu hình trạng thái kích hoạt Active = False cho vai trò [PASS]', async ({ page }) => {
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
     await handleCloudflare(page);
 
@@ -185,7 +185,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 11. cust_role_11: Kiểm tra chọn sản phẩm liên kết với vai trò
-  test('cust_role_11: Kiểm tra chọn sản phẩm liên kết với vai trò [PASS]', async ({ page }) => {
+  test('cust_role_11: Chọn sản phẩm liên kết yêu cầu mua kèm với vai trò khách hàng [PASS]', async ({ page }) => {
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
     await handleCloudflare(page);
 
@@ -207,7 +207,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 12. cust_role_12: Kiểm tra xóa sản phẩm liên kết
-  test('cust_role_12: Kiểm tra xóa sản phẩm liên kết [PASS]', async ({ page }) => {
+  test('cust_role_12: Gỡ bỏ sản phẩm liên kết khỏi vai trò khách hàng [PASS]', async ({ page }) => {
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
     await handleCloudflare(page);
 
@@ -219,7 +219,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 13. cust_role_13: Kiểm tra thuộc tính 'Is system role' của vai trò hệ thống
-  test('cust_role_13: Kiểm tra thuộc tính Is system role của vai trò hệ thống [PASS]', async ({ page }) => {
+  test('cust_role_13: Hiển thị cờ vai trò hệ thống Is system role = True cho Administrators [PASS]', async ({ page }) => {
     await handleCloudflare(page);
     const adminRow = page.locator('#customerroles-grid tbody tr', { hasText: 'Administrators' });
     await expect(adminRow.first()).toBeVisible();
@@ -227,7 +227,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 14. cust_role_14: Kiểm tra vô hiệu hóa trường System name đối với vai trò hệ thống [FAILED - Bug Intentional]
-  test('cust_role_14: Kiểm tra vô hiệu hóa trường System name đối với vai trò hệ thống [FAILED - Bug Intentional]', async ({ page }) => {
+  test('cust_role_14: Khóa chỉnh sửa trường System name đối với các vai trò hệ thống [FAILED - Bug Intentional]', async ({ page }) => {
     await handleCloudflare(page);
     const adminRow = page.locator('#customerroles-grid tbody tr', { hasText: 'Administrators' });
     await adminRow.locator('a:has-text("Edit")').first().click();
@@ -245,7 +245,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 15. cust_role_15: Kiểm tra thao tác chặn xóa đối với vai trò hệ thống [PASS]
-  test('cust_role_15: Kiểm tra thao tác chặn xóa đối với vai trò hệ thống [PASS]', async ({ page }) => {
+  test('cust_role_15: Chặn xóa và ẩn nút Delete đối với vai trò hệ thống (Guests) [PASS]', async ({ page }) => {
     await handleCloudflare(page);
     const guestsRow = page.locator('#customerroles-grid tbody tr', { hasText: 'Guests' });
     await guestsRow.locator('a:has-text("Edit")').first().click();
@@ -271,7 +271,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 16. cust_role_16: Kiểm tra truy cập trang chỉnh sửa vai trò
-  test('cust_role_16: Kiểm tra truy cập trang chỉnh sửa vai trò [PASS]', async ({ page }) => {
+  test('cust_role_16: Điều hướng vào trang chỉnh sửa chi tiết vai trò khách hàng [PASS]', async ({ page }) => {
     await handleCloudflare(page);
     const firstEditLink = page.locator('#customerroles-grid tbody tr td:nth-child(6) a:has-text("Edit")').first();
     await firstEditLink.click();
@@ -280,7 +280,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 17. cust_role_17: Kiểm tra cập nhật tên vai trò tự tạo thành công
-  test('cust_role_17: Kiểm tra cập nhật tên vai trò tự tạo thành công [PASS]', async ({ page }) => {
+  test('cust_role_17: Cập nhật Tên vai trò tự tạo thành công [PASS]', async ({ page }) => {
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
     await handleCloudflare(page);
     const originalName = `RoleEdit_${Date.now().toString().slice(-4)}`;
@@ -297,7 +297,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 18. cust_role_18: Kiểm tra cập nhật trạng thái Active của vai trò tự tạo
-  test('cust_role_18: Kiểm tra cập nhật trạng thái Active của vai trò tự tạo [PASS]', async ({ page }) => {
+  test('cust_role_18: Cập nhật trạng thái Active của vai trò tự tạo thành công [PASS]', async ({ page }) => {
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
     await handleCloudflare(page);
     const roleName = `RoleToggle_${Date.now().toString().slice(-4)}`;
@@ -313,7 +313,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 19. cust_role_19: Kiểm tra thao tác hủy xóa trên hộp thoại
-  test('cust_role_19: Kiểm tra thao tác hủy xóa trên hộp thoại [PASS]', async ({ page }) => {
+  test('cust_role_19: Hủy bỏ thao tác xóa vai trò trên hộp thoại xác nhận (Cancel Delete) [PASS]', async ({ page }) => {
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
     await handleCloudflare(page);
     const roleName = `RoleCancelDel_${Date.now().toString().slice(-4)}`;
@@ -332,7 +332,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
   });
 
   // 20. cust_role_20: Kiểm tra xác nhận xóa vai trò tự tạo thành công
-  test('cust_role_20: Kiểm tra xác nhận xóa vai trò tự tạo thành công [PASS]', async ({ page }) => {
+  test('cust_role_20: Xác nhận xóa vai trò tự tạo thành công khỏi hệ thống [PASS]', async ({ page }) => {
     await page.goto('http://localhost:8080/Admin/CustomerRole/Create');
     await handleCloudflare(page);
     const roleName = `RoleDelete_${Date.now().toString().slice(-4)}`;
