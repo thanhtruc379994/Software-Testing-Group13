@@ -168,7 +168,7 @@ test.describe('Admin - Create Category', () => {
         await expect(page.locator('#Name')).toHaveValue('');
         await expect(page.locator('.note-editable').first()).toHaveText('');
         await expect(page.locator('#ParentCategoryId')).toHaveValue('0');
-        await expect(page.locator('.card[data-card-name="category-display"]')).toHaveClass(/collapsed-card/);
+        await expect(page.locator('#category-display')).toBeVisible();
     });
 
     test('Add_category_required_mark_03 - Kiểm tra dấu (*) bắt buộc ở trường Name', async ({page}) => {
