@@ -300,7 +300,7 @@ test.describe('Admin - Categories', () => {
     test.setTimeout(180000);
 
     test.afterEach(async ({ page }, testInfo) => {
-        const screenshotDir = path.resolve(process.cwd(), '23130075_NguyenHuuDuy', 'sreenshots');
+        const screenshotDir = path.resolve(process.cwd(), 'screenshots', 'admin_categories');
         if (!fs.existsSync(screenshotDir)) {
             fs.mkdirSync(screenshotDir, { recursive: true });
         }

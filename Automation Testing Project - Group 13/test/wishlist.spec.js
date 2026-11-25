@@ -2,7 +2,7 @@
 const { test, expect } = require('../../fixtures');
 
 // Biến đường dẫn web (Base URL)
-const BASE_URL = 'https://demo.nopcommerce.com';
+const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 
 test.describe('Kiểm thử User - Wishlist (30 Test Cases theo Excel)', () => {
 
