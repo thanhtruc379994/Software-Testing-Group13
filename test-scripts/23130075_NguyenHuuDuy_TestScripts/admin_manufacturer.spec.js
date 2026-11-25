@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
 
-const BASE = process.env.BASE_URL || 'http://localhost:8080';
+const BASE = process.env.BASE_URL || 'http://192.168.100.208:8080';
 const ADMIN_EMAIL = 'admin@yourStore.com';
 const ADMIN_PASSWORD = 'Admin@123';
 const CREATE_URL = BASE + '/Admin/Manufacturer/Create';
