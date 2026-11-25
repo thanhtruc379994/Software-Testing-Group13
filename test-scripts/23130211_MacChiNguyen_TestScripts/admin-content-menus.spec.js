@@ -1,30 +1,45 @@
 const { test, expect } = require('../../fixtures');
 
-const ADMIN_URL = 'https://admin-demo.nopcommerce.com';
-const STORE_URL = 'https://demo.nopcommerce.com';
+const ADMIN_URL = process.env.ADMIN_URL || process.env.BASE_URL || 'http://localhost:8080';
+const STORE_URL = process.env.BASE_URL || 'http://localhost:8080';
+
+async function ensureAdminLoggedIn(page) {
+    if (page.url() === 'about:blank' || page.url().includes('/login') || page.url().includes('/Login')) {
+        const emailInput = page.locator('#Email, input[name="Email"]').first();
+        if (await emailInput.isVisible({ timeout: 8000 }).catch(() => false)) {
+            await emailInput.fill('admin@yourstore.com');
+            await page.locator('#Password, input[name="Password"]').first().fill(process.env.ADMIN_PASSWORD || 'Admin@123');
+            await page.locator('button.login-button, button[type="submit"]:has-text("Log in"), button:has-text("LOG IN")').first().click();
+            await page.waitForLoadState('networkidle').catch(() => {});
+        }
+    }
+}
 
 test.describe('Admin Content Menus View', () => {
     test('CONTENT_Menu_View_01: Kiem tra mo trang Menus tu menu Content management', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
 
             const contentMgmtItem = page.locator('nav.mt-2 li.nav-item, .nav-sidebar li.nav-item').filter({ hasText: 'Content management' }).first();
             const contentMgmtLink = contentMgmtItem.locator('a.nav-link').first();
 
-            const isOpen = await contentMgmtItem.evaluate(el => el.classList.contains('menu-open') || el.classList.contains('menu-is-opening'));
+            const isOpen = await contentMgmtItem.evaluate(el => el.classList.contains('menu-open') || el.classList.contains('menu-is-opening')).catch(() => false);
             if (!isOpen) {
-                await contentMgmtLink.click();
+                await contentMgmtLink.evaluate(el => {
+                    el.scrollIntoView({ block: 'center', inline: 'center' });
+                    el.click();
+                });
                 await page.waitForTimeout(500);
             }
 
             const menusLink = page.locator('a.nav-link[href*="/Admin/Menu/List"], a.nav-link:has-text("Menus")').first();
             await expect(menusLink).toBeVisible({ timeout: 10000 });
-            await menusLink.click();
+            await menusLink.evaluate(el => {
+                el.scrollIntoView({ block: 'center', inline: 'center' });
+                el.click();
+            });
             await page.waitForLoadState('domcontentloaded');
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
@@ -41,10 +56,7 @@ test.describe('Admin Content Menus View', () => {
         });
     test('CONTENT_Menu_View_02: Kiem tra cac cot cua luoi Menus', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
 
@@ -64,10 +76,7 @@ test.describe('Admin Content Menus View', () => {
         });
     test('CONTENT_Menu_View_03: Kiem tra du lieu mac dinh trong luoi Menus', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
 
@@ -87,10 +96,7 @@ test.describe('Admin Content Menus View', () => {
         });
     test('CONTENT_Menu_View_04: Kiem tra thanh phan trang va thong tin so ban ghi', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
 
@@ -110,10 +116,7 @@ test.describe('Admin Content Menus View', () => {
         });
     test('CONTENT_Menu_View_05: Kiem tra lien ket Learn more about menus', async ({ page, context }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
 
@@ -139,10 +142,7 @@ test.describe('Admin Content Menus View', () => {
 test.describe('Admin Content Menus Add', () => {
     test('CONTENT_Menu_Add_01: Kiem tra click Add new mo trang them menu', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const addNewBtn = page.locator('a[href*="/Admin/Menu/Create"], a:has-text("Add new")').first();
             await expect(addNewBtn).toBeVisible({ timeout: 15000 });
@@ -157,10 +157,7 @@ test.describe('Admin Content Menus Add', () => {
         });
     test('CONTENT_Menu_Add_02: Kiem tra them menu Footer voi thong tin hop le', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/Create`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const nameInput = page.locator('#Name, input[name="Name"]').first();
             await expect(nameInput).toBeVisible({ timeout: 15000 });
@@ -188,10 +185,7 @@ test.describe('Admin Content Menus Add', () => {
         });
     test('CONTENT_Menu_Add_03: Kiem tra them menu bang Save and Continue Edit', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/Create`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const nameInput = page.locator('#Name, input[name="Name"]').first();
             await expect(nameInput).toBeVisible({ timeout: 15000 });
@@ -213,10 +207,7 @@ test.describe('Admin Content Menus Add', () => {
         });
     test('CONTENT_Menu_Add_05: Kiem tra them menu voi Published tat', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/Create`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const nameInput = page.locator('#Name, input[name="Name"]').first();
             await expect(nameInput).toBeVisible({ timeout: 15000 });
@@ -237,10 +228,7 @@ test.describe('Admin Content Menus Add', () => {
         });
     test('CONTENT_Menu_Add_06: Kiem tra de trong Name khi luu', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/Create`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const nameInput = page.locator('#Name, input[name="Name"]').first();
             await expect(nameInput).toBeVisible({ timeout: 15000 });
@@ -255,10 +243,7 @@ test.describe('Admin Content Menus Add', () => {
     test('CONTENT_Menu_Add_07: Kiem tra ten menu trung voi menu da co', async ({ page }) => {
         expect(true, 'Defect: Sai giá trị mong đợi theo kịch bản test (CONTENT_Menu_Add_07)').toBe(false);
             await page.goto(`${ADMIN_URL}/Admin/Menu/Create`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const nameInput = page.locator('#Name, input[name="Name"]').first();
             await expect(nameInput).toBeVisible({ timeout: 15000 });
@@ -277,10 +262,7 @@ test.describe('Admin Content Menus Add', () => {
             });
 
             await page.goto(`${ADMIN_URL}/Admin/Menu/Create`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const cancelName = 'test_menu_cancel';
             const nameInput = page.locator('#Name, input[name="Name"]').first();
@@ -300,10 +282,7 @@ test.describe('Admin Content Menus Add', () => {
 test.describe('Admin Content Menus Edit', () => {
     test('CONTENT_Menu_Edit_01: Kiem tra click Edit mo dung menu', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const editBtn = page.locator('#menus-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -323,10 +302,7 @@ test.describe('Admin Content Menus Edit', () => {
         });
     test('CONTENT_Menu_Edit_02: Kiem tra sua Name cua menu va luu', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const editBtn = page.locator('#menus-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -347,10 +323,7 @@ test.describe('Admin Content Menus Edit', () => {
     test('CONTENT_Menu_Edit_03: Kiem tra doi Menu type cua menu', async ({ page }) => {
         expect(true, 'Defect: Sai giá trị mong đợi theo kịch bản test (CONTENT_Menu_Edit_03)').toBe(false);
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const editBtn = page.locator('#menus-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -376,10 +349,7 @@ test.describe('Admin Content Menus Edit', () => {
         });
     test('CONTENT_Menu_Edit_04: Kiem tra xoa trong Name khi sua', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const editBtn = page.locator('#menus-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -401,10 +371,7 @@ test.describe('Admin Content Menus Edit', () => {
 test.describe('Admin Content Menus Delete', () => {
     test('CONTENT_Menu_Delete_01: Kiem tra huy xoa menu o hop thoai xac nhan', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const editBtn = page.locator('#menus-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -425,10 +392,7 @@ test.describe('Admin Content Menus Delete', () => {
         });
     test('CONTENT_Menu_Delete_02: Kiem tra xoa menu do minh tao', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const editBtn = page.locator('#menus-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -462,10 +426,7 @@ test.describe('Admin Content Menus Delete', () => {
 test.describe('Admin Content Menus Grid', () => {
     test('CONTENT_Menu_Grid_01: Kiem tra cac lua chon so dong moi trang Show items', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
 
@@ -482,10 +443,7 @@ test.describe('Admin Content Menus Grid', () => {
         });
     test('CONTENT_Menu_Grid_02: Kiem tra doi so dong moi trang khi so ban ghi it hon', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
 
@@ -522,10 +480,7 @@ test.describe('Admin Content Menus Grid', () => {
     test('CONTENT_Menu_Grid_03: Kiem tra Previous va Next khi chi co 1 trang', async ({ page }) => {
         expect(true, 'Defect: Sai giá trị mong đợi theo kịch bản test (CONTENT_Menu_Grid_03)').toBe(false);
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
 
@@ -558,10 +513,7 @@ test.describe('Admin Content Menus Grid', () => {
 test.describe('Admin Content Menus Item', () => {
     test('CONTENT_Menu_Item_01: Kiem tra trang Edit hien thi phan quan ly cac muc cua menu', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const editBtn = page.locator('#menus-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -577,10 +529,7 @@ test.describe('Admin Content Menus Item', () => {
         });
     test('CONTENT_Menu_Item_02: Kiem tra them mot muc vao menu', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const editBtn = page.locator('#menus-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -609,10 +558,7 @@ test.describe('Admin Content Menus Item', () => {
         });
     test('CONTENT_Menu_Item_03: Kiem tra them muc menu khi de trong Title', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const editBtn = page.locator('#menus-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -654,10 +600,7 @@ test.describe('Admin Content Menus Setting', () => {
         });
     test('CONTENT_Menu_Setting_02: Kiem tra tat Published menu bien mat o cua hang', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             const editBtn = page.locator('#menus-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -686,10 +629,7 @@ test.describe('Admin Content Menus Setting', () => {
 test.describe('Admin Content Menus Security', () => {
     test('CONTENT_Menu_Security_01: Kiem tra truy cap trang Menus khi chua dang nhap admin', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
 
@@ -702,10 +642,7 @@ test.describe('Admin Content Menus GUI', () => {
     test('CONTENT_Menu_GUI_01: Kiem tra layout trang Menus tren may tinh', async ({ page }) => {
             await page.setViewportSize({ width: 1280, height: 800 });
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
 
@@ -729,10 +666,7 @@ test.describe('Admin Content Menus GUI', () => {
     test('CONTENT_Menu_GUI_02: Kiem tra layout trang Menus tren man hinh nho', async ({ page }) => {
             await page.setViewportSize({ width: 375, height: 667 });
             await page.goto(`${ADMIN_URL}/Admin/Menu/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await ensureAdminLoggedIn(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
 

@@ -287,7 +287,7 @@ test.describe('Admin - Manufacturers', () => {
     }
 
     test.afterEach(async ({ page }, testInfo) => {
-        const screenshotDir = path.resolve(process.cwd(), '23130075_NguyenHuuDuy', 'sreenshots');
+        const screenshotDir = path.resolve(process.cwd(), 'screenshots', 'admin_manufacturer');
         if (!fs.existsSync(screenshotDir)) {
             fs.mkdirSync(screenshotDir, { recursive: true });
         }

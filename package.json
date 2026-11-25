@@ -5,6 +5,9 @@
   "main": "playwright.config.js",
   "scripts": {
     "test": "playwright test",
+    "test:suite": "node run-test-suite.js",
+    "test:suite:playwright": "playwright test --config=playwright.suite.config.js",
+    "test:list": "playwright test test-scripts --list",
     "auth": "node auth.js"
   },
   "repository": {

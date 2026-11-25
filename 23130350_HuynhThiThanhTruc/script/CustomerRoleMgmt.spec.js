@@ -43,7 +43,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
 
   // Tự động chụp màn hình cho từng test case (dù PASS hay FAILED) lưu vào thư mục riêng screenshots/CustomerRole
   test.afterEach(async ({ page }, testInfo) => {
-    const screenshotDir = path.resolve(__dirname, 'screenshots', 'CustomerRole');
+    const screenshotDir = path.resolve(process.cwd(), 'screenshots', 'CustomerRole');
     if (!fs.existsSync(screenshotDir)) {
       fs.mkdirSync(screenshotDir, { recursive: true });
     }
