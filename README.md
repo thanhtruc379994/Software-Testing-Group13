@@ -1,4 +1,4 @@
-1. **GitHub Repository URL:https://github.com/thanhtruc379994/Tester.git**  
+1. **GitHub Repository URL:https://github.com/thanhtruc379994/Software-Testing-Group13.git**  
 
 2. **Function Analysis URL:https://docs.google.com/document/d/1qhighUkc086JAuzBfUTuBbc6M3qhog14FgjCn0Mwd4c/edit?usp=sharing**  
 
