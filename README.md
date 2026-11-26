@@ -6,23 +6,25 @@
 
 ---
 
-## 📌 1. Project Overview (Tổng quan dự án)
+## 1. Project Overview (Tổng quan dự án)
 
 Dự án này là đồ án thực hành môn Kiểm thử phần mềm, tập trung vào việc xây dựng bộ kiểm thử tự động End-to-End (E2E Testing) cho nền tảng thương mại điện tử mã nguồn mở **nopCommerce**. 
 
 Bộ kiểm thử bao gồm cả kiểm thử phía quản trị viên (**Admin Dashboard**) và phía người dùng cuối (**Customer/Storefront**), đảm bảo tính đúng đắn của các quy trình nghiệp vụ chính như quản lý danh mục, sản phẩm, đơn hàng, giao hàng, khách hàng, chương trình khuyến mãi, bài viết nội dung và giỏ hàng.
 
-### 🔗 Các liên kết tài liệu dự án
-- **GitHub Repository:** [https://github.com/thanhtruc379994/Tester](https://github.com/thanhtruc379994/Tester)
-- **Phân tích chức năng (Function Analysis):** [Google Docs - Function Analysis](https://docs.google.com/document/d/1qhighUkc086JAuzBfUTuBbc6M3qhog14FgjCn0Mwd4c/edit?usp=sharing)
-- **Bảng kịch bản kiểm thử (Test Cases):** [Google Sheets - Test Cases](https://docs.google.com/spreadsheets/d/1BDj2GDrRwo57Pd_PU2GgXwDwqKWTOI15RB8Ds-x5Iqw/edit?usp=sharing)
-- **Bảng phân công & Tiến độ (Task Assignment & Progress):** [Google Sheets - Tasks & Progress](https://docs.google.com/spreadsheets/d/1gtRr_YCvtCsKLBbO4SRrAKBNgwNqN8hV3cpMLKdm5ew/edit?gid=2009482914#gid=2009482914)
-- **Báo cáo lỗi (Defect List):** [Google Sheets - Defect List](https://docs.google.com/spreadsheets/d/1J455YL6Vn_J-vmkA4QUgUI88vBuaaeWJ/edit?usp=sharing&ouid=110987605027688692150&rtpof=true&sd=true)
-- **Báo cáo kiểm thử & Minh chứng (Test Report & Evidence):** [Google Drive - Evidence Folder](https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing)
+### Các liên kết tài liệu dự án
+- **GitHub Repository URL:** [https://github.com/thanhtruc379994/Tester](https://github.com/thanhtruc379994/Tester)
+- **Function Analysis URL:** [https://docs.google.com/document/d/1qhighUkc086JAuzBfUTuBbc6M3qhog14FgjCn0Mwd4c/edit?usp=sharing](https://docs.google.com/document/d/1qhighUkc086JAuzBfUTuBbc6M3qhog14FgjCn0Mwd4c/edit?usp=sharing)
+- **Google Sheets – Test Cases URL:** [https://docs.google.com/spreadsheets/d/1BDj2GDrRwo57Pd_PU2GgXwDwqKWTOI15RB8Ds-x5Iqw/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1BDj2GDrRwo57Pd_PU2GgXwDwqKWTOI15RB8Ds-x5Iqw/edit?usp=sharing)
+- **Google Sheets – Task Assignment & Progress URL:** [https://docs.google.com/spreadsheets/d/1gtRr_YCvtCsKLBbO4SRrAKBNgwNqN8hV3cpMLKdm5ew/edit?gid=2009482914#gid=2009482914](https://docs.google.com/spreadsheets/d/1gtRr_YCvtCsKLBbO4SRrAKBNgwNqN8hV3cpMLKdm5ew/edit?gid=2009482914#gid=2009482914)  
+  *(Kế hoạch công việc: [Google Docs Tasks](https://docs.google.com/document/d/1xjgDQCwnMpTTQ2oFeRyUmuW6jyUd531HSVvjO9PTbmY/edit?tab=t.0))*
+- **Google Sheets – Defect List URL:** [https://docs.google.com/spreadsheets/d/1fIbgGFcDGK1-eBBoK4P1DFotBlaJpOoryl_POzfWrok/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1fIbgGFcDGK1-eBBoK4P1DFotBlaJpOoryl_POzfWrok/edit?usp=sharing)
+- **Google Slides – Final Presentation URL:** *Đợi bài cá nhân*
+- **Google Drive – Test Report & Evidence URL:** [https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing](https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing)
 
 ---
 
-## 🌐 2. Website được kiểm thử (Target System Under Test)
+## 2. Website được kiểm thử (Target System Under Test)
 
 Hệ thống được kiểm thử là nền tảng thương mại điện tử **nopCommerce** (phiên bản 4.70 / 4.80 chạy trên nền ASP.NET Core & Microsoft SQL Server). Dự án hỗ trợ kiểm thử trên 2 môi trường:
 
@@ -41,7 +43,7 @@ Hệ thống được kiểm thử là nền tảng thương mại điện tử 
 
 ---
 
-## 👥 3. Danh sách thành viên (Team Members)
+## 3. Danh sách thành viên (Team Members)
 
 | STT | Họ và Tên | Mã số sinh viên (MSSV) | Email Sinh viên | GitHub Username | Module / Chức năng phụ trách |
 |:---:|:---|:---:|:---|:---:|:---|
@@ -53,7 +55,7 @@ Hệ thống được kiểm thử là nền tảng thương mại điện tử 
 
 ---
 
-## 🛠️ 4. Công nghệ và công cụ sử dụng (Tech Stack & Tools)
+## 4. Công nghệ và công cụ sử dụng (Tech Stack & Tools)
 
 - **Ngôn ngữ kịch bản:** JavaScript (Node.js ES6+ / CommonJS)
 - **Framework kiểm thử tự động:** [Playwright Test](https://playwright.dev/) (`^1.40+`)
@@ -69,7 +71,7 @@ Hệ thống được kiểm thử là nền tảng thương mại điện tử 
 
 ---
 
-## 📁 5. Cấu trúc thư mục (Directory Structure)
+## 5. Cấu trúc thư mục (Directory Structure)
 
 ```text
 Tester/
@@ -121,7 +123,7 @@ Tester/
 
 ---
 
-## 🚀 6. Hướng dẫn cài đặt và cấu hình (Installation & Setup)
+## 6. Hướng dẫn cài đặt và cấu hình (Installation & Setup)
 
 ### Bước 1: Yêu cầu môi trường tiền đề
 - Đã cài đặt **Node.js** (Khuyến nghị phiên bản LTS 18.x hoặc 20.x trở lên).
@@ -165,11 +167,11 @@ Trình duyệt Chrome sẽ tự động bật lên. Bạn chỉ cần tick chọ
 
 ---
 
-## 🧪 7. Hướng dẫn chạy Test Scripts của từng thành viên
+## 7. Hướng dẫn chạy Test Scripts của từng thành viên
 
 Bạn có thể chạy kiểm thử cho từng thành viên bằng cách chỉ định đường dẫn thư mục hoặc file `.spec.js` tương ứng.
 
-### 👤 1. Thành viên: Trương Cao Doãn (23130064)
+### 1. Thành viên: Trương Cao Doãn (23130064)
 - **Chạy toàn bộ kịch bản của thành viên:**
   ```bash
   npx playwright test test-scripts/23130064_TruongCaoDoan_TestScripts/
@@ -188,7 +190,7 @@ Bạn có thể chạy kiểm thử cho từng thành viên bằng cách chỉ �
 
 ---
 
-### 👤 2. Thành viên: Nguyễn Hữu Duy (23130075)
+### 2. Thành viên: Nguyễn Hữu Duy (23130075)
 - **Chạy toàn bộ kịch bản của thành viên:**
   ```bash
   npx playwright test test-scripts/23130075_NguyenHuuDuy_TestScripts/
@@ -207,7 +209,7 @@ Bạn có thể chạy kiểm thử cho từng thành viên bằng cách chỉ �
 
 ---
 
-### 👤 3. Thành viên: Mạc Chí Nguyên (23130211)
+### 3. Thành viên: Mạc Chí Nguyên (23130211)
 - **Chạy toàn bộ kịch bản của thành viên:**
   ```bash
   npx playwright test test-scripts/23130211_MacChiNguyen_TestScripts/
@@ -226,7 +228,7 @@ Bạn có thể chạy kiểm thử cho từng thành viên bằng cách chỉ �
 
 ---
 
-### 👤 4. Thành viên: Lê Hữu Phước (23130251)
+### 4. Thành viên: Lê Hữu Phước (23130251)
 - **Chạy toàn bộ kịch bản của thành viên:**
   ```bash
   npx playwright test test-scripts/23130251_LeHuuPhuoc_TestScripts/
@@ -245,7 +247,7 @@ Bạn có thể chạy kiểm thử cho từng thành viên bằng cách chỉ �
 
 ---
 
-### 👤 5. Thành viên: Huỳnh Thị Thanh Trúc (23130350)
+### 5. Thành viên: Huỳnh Thị Thanh Trúc (23130350)
 - **Chạy toàn bộ kịch bản của thành viên:**
   ```bash
   npx playwright test test-scripts/23130350_HuynhThiThanhTruc_TestScripts/
@@ -264,7 +266,7 @@ Bạn có thể chạy kiểm thử cho từng thành viên bằng cách chỉ �
 
 ---
 
-## ⚡ 8. Hướng dẫn chạy toàn bộ Test Suite (Full Test Suite Execution)
+## 8. Hướng dẫn chạy toàn bộ Test Suite (Full Test Suite Execution)
 
 ### 1. Lệnh thực thi cơ bản
 Để chạy tất cả các kịch bản kiểm thử trong thư mục `test-scripts/`:
@@ -298,7 +300,7 @@ npx playwright test test-scripts/
 
 ---
 
-## 📊 9. Hướng dẫn xem Test Reports và Screenshots
+## 9. Hướng dẫn xem Test Reports và Screenshots
 
 ### 1. Xem Playwright HTML Report chuẩn
 Sau khi quá trình thực thi test hoàn thành, Playwright sẽ tự động ghi kết quả vào thư mục `playwright-report/`. 
@@ -341,4 +343,4 @@ Trong thư mục `reports/` có sẵn các file HTML báo cáo độc lập cho 
   ```
 
 ---
-*© 2026 - Nhóm 13 - Môn Kiểm thử phần mềm - Đại học Nông Lâm TP.HCM (NLU)*
+*Nhóm 13 - Môn Kiểm thử phần mềm - Đại học Nông Lâm TP.HCM (NLU)*
