@@ -8,7 +8,7 @@
 
 ## 1. Project Overview (Tổng quan dự án)
 
-Dự án này là đồ án thực hành môn Kiểm thử phần mềm, tập trung vào việc xây dựng bộ kiểm thử tự động End-to-End (E2E Testing) cho nền tảng thương mại điện tử mã nguồn mở **nopCommerce**. 
+Dự án này là đồ án thực hành môn Kiểm thử phần mềm, tập trung vào việc xây dựng bộ kiểm thử tự động End-to-End (E2E Testing) cho nền tảng thương mại điện tử mã nguồn mở **nopCommerce**.
 
 Bộ kiểm thử bao gồm cả kiểm thử phía quản trị viên (**Admin Dashboard**) và phía người dùng cuối (**Customer/Storefront**), đảm bảo tính đúng đắn của các quy trình nghiệp vụ chính như quản lý danh mục, sản phẩm, đơn hàng, giao hàng, khách hàng, chương trình khuyến mãi, bài viết nội dung và giỏ hàng.
 
@@ -19,7 +19,7 @@ Bộ kiểm thử bao gồm cả kiểm thử phía quản trị viên (**Admin 
 - **Google Sheets – Task Assignment & Progress URL:** [https://docs.google.com/spreadsheets/d/1pCoccrbKkJfXaAXW1ui2W3o84JUjxQJSs8s5MQHpoPg/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1pCoccrbKkJfXaAXW1ui2W3o84JUjxQJSs8s5MQHpoPg/edit?usp=sharing)
 - **Google Sheets – Defect List URL:** [https://docs.google.com/spreadsheets/d/1fIbgGFcDGK1-eBBoK4P1DFotBlaJpOoryl_POzfWrok/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1fIbgGFcDGK1-eBBoK4P1DFotBlaJpOoryl_POzfWrok/edit?usp=sharing)
 - **Google Slides – Final Presentation URL:** *Đợi bài cá nhân*
-- **Google Drive – Test Report & Evidence URL:** [https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing](https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing)
+- **Google Drive – Test Report & Evidence URL (Xem Screenshots & Minh chứng kiểm thử):** [https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing](https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing)
 
 ---
 
@@ -62,11 +62,15 @@ Hệ thống được kiểm thử là nền tảng thương mại điện tử 
 - **Môi trường ảo hóa & Database (Local):**
   - **Docker & Docker Compose**: Điều phối các container nopCommerce Web và MS SQL Server.
   - **Microsoft SQL Server (MSSQL 2022 Express)**: Lưu trữ cơ sở dữ liệu nopCommerce mẫu.
-- **Hệ thống CI/CD:** GitHub Actions (tự động chạy test suite khi có commit hoặc pull request).
-- **Công cụ quản lý & Báo cáo:**
-  - Playwright HTML Reporter (kèm trace viewer, screenshot, video).
-  - Standalone Custom HTML Reports.
-  - Excel Test Case Sheets & Defect Tracking.
+- **Hệ thống CI/CD & Quản lý mã nguồn:** Git, GitHub, GitHub Actions (tự động chạy test suite khi có commit hoặc pull request).
+- **Bộ công cụ tài liệu, thiết kế & lưu trữ:**
+  - **Google Docs**: Soạn thảo tài liệu phân tích chức năng (Function Analysis).
+  - **Google Sheets**: Xây dựng kịch bản kiểm thử (Test Cases), phân công & theo dõi tiến độ (Task Assignment) và quản lý danh sách lỗi (Defect List).
+  - **Google Drive**: Lưu trữ tập trung toàn bộ tài liệu dự án, video và hình ảnh minh chứng kiểm thử (Screenshots & Evidence).
+  - **Canva**: Thiết kế slide thuyết trình báo cáo tổng kết dự án (Final Presentation).
+- **Công cụ báo cáo kiểm thử:**
+  - Báo cáo HTML tĩnh theo 5 Phase (`reports/Phase-1.html` -> `Phase-5.html`).
+  - Playwright HTML Reporter (kèm trace viewer, call log, execution time).
 
 ---
 
@@ -81,13 +85,12 @@ Tester/
 │   ├── docker-compose.yaml           # Cấu hình khởi chạy nopCommerce + MSSQL Server local
 │   ├── note.txt                      # Hướng dẫn thông số cài đặt ban đầu cho nopCommerce local
 │   └── .env
-├── reports/                          # Các file HTML Report độc lập cho từng module kiểm thử
-│   ├── affiliates.html
-│   ├── promotion.html
-│   ├── report-admin-content-menus.html
-│   ├── report-admin-content-topics.html
-│   ├── report-user-search-filter.html
-│   └── wishlist.html
+├── reports/                          # Các file HTML Report tổng hợp theo từng Phase kiểm thử
+│   ├── Phase-1.html                  # Phase 1: Nền tảng Quản trị & Phân quyền (RBAC & Foundation)
+│   ├── Phase-2.html                  # Phase 2: Quản trị Danh mục hàng hóa & Sản phẩm (Catalog Management)
+│   ├── Phase-3.html                  # Phase 3: Tiếp thị & Khuyến mãi (Marketing & Promotions)
+│   ├── Phase-4.html                  # Phase 4: Trải nghiệm Khách hàng trên Storefront (Storefront Customer Journey)
+│   └── Phase-5.html                  # Phase 5: Xử lý Đơn hàng & Giao vận (Orders & Fulfillment)
 ├── test-scripts/                     # Thư mục chính chứa mã nguồn kiểm thử của các thành viên
 │   ├── 23130064_TruongCaoDoan_TestScripts/
 │   │   ├── orders.spec.js            # Test Scripts Quản lý Đơn hàng
@@ -301,45 +304,37 @@ npx playwright test test-scripts/
 
 ## 9. Hướng dẫn xem Test Reports và Screenshots
 
-### 1. Xem Playwright HTML Report chuẩn
-Sau khi quá trình thực thi test hoàn thành, Playwright sẽ tự động ghi kết quả vào thư mục `playwright-report/`. 
+### 1. Xem Screenshots và Minh chứng kiểm thử trên Google Drive (Khuyến nghị)
+Toàn bộ hình ảnh Screenshots minh chứng kết quả chạy kiểm thử (Pass/Fail) và các video/báo cáo minh chứng của từng thành viên trong Nhóm 13 đã được tải lên và lưu trữ đầy đủ tại thư mục Google Drive:
 
-Để mở giao diện trực quan trên trình duyệt:
+- **Link Google Drive – Test Report & Evidence:** [https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing](https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing)
+
+Thư mục trên Google Drive được phân chia theo từng thành viên và module tương ứng:
+- Thư mục Screenshots minh chứng cho từng test case của từng thành viên.
+- Các file báo cáo kết quả kiểm thử (Test Reports dạng HTML và PDF).
+- File tổng hợp danh sách lỗi (Defect Report) và dữ liệu liên quan.
+
+### 2. Xem các file Test Report tĩnh theo từng Phase (Thư mục `reports/`)
+Dự án đã tích hợp sẵn các file báo cáo kết quả HTML tĩnh theo 5 Phase kiểm thử trong thư mục `reports/`:
+- [Phase-1.html](file:///d:/n4k1/test/gh/Tester/reports/Phase-1.html): Báo cáo Phase 1 - Nền tảng Quản trị & Phân quyền (RBAC & Foundation).
+- [Phase-2.html](file:///d:/n4k1/test/gh/Tester/reports/Phase-2.html): Báo cáo Phase 2 - Quản trị Danh mục hàng hóa & Sản phẩm (Catalog Management).
+- [Phase-3.html](file:///d:/n4k1/test/gh/Tester/reports/Phase-3.html): Báo cáo Phase 3 - Tiếp thị & Khuyến mãi (Marketing & Promotions).
+- [Phase-4.html](file:///d:/n4k1/test/gh/Tester/reports/Phase-4.html): Báo cáo Phase 4 - Trải nghiệm Khách hàng trên Storefront (Storefront Customer Journey).
+- [Phase-5.html](file:///d:/n4k1/test/gh/Tester/reports/Phase-5.html): Báo cáo Phase 5 - Xử lý Đơn hàng & Giao vận (Orders & Fulfillment).
+
+*(Người dùng có thể mở trực tiếp các file `.html` này trên bất kỳ trình duyệt nào để xem tổng hợp và chuyển hướng đến báo cáo chi tiết).*
+
+### 3. Xem Playwright HTML Report khi chạy trực tiếp trên máy (Local)
+Sau khi thực thi test trên máy cục bộ, Playwright sẽ tự động tạo báo cáo trực quan trong thư mục `playwright-report/`.
+
+Để mở báo cáo trên trình duyệt:
 ```bash
 npx playwright show-report
 ```
-Giao diện báo cáo cung cấp:
+Báo cáo này hiển thị:
 - Tổng số test case Pass, Fail, Flaky và Skipped.
-- Thời gian chạy chi tiết từng bước (Step-by-step Execution Time).
-- Call log, network calls, thông tin lỗi chi tiết (Error messages & Stack trace).
-
-### 2. Xem các Test Report tĩnh riêng biệt (Thư mục `reports/`)
-Trong thư mục `reports/` có sẵn các file HTML báo cáo độc lập cho từng nhóm chức năng:
-- [affiliates.html](file:///d:/n4k1/test/gh/Tester/reports/affiliates.html): Báo cáo kiểm thử module Tiếp thị liên kết.
-- [promotion.html](file:///d:/n4k1/test/gh/Tester/reports/promotion.html): Báo cáo kiểm thử module Khuyến mãi.
-- [report-admin-content-menus.html](file:///d:/n4k1/test/gh/Tester/reports/report-admin-content-menus.html): Báo cáo module Quản lý Menus.
-- [report-admin-content-topics.html](file:///d:/n4k1/test/gh/Tester/reports/report-admin-content-topics.html): Báo cáo module Quản lý Topics.
-- [report-user-search-filter.html](file:///d:/n4k1/test/gh/Tester/reports/report-user-search-filter.html): Báo cáo module Tìm kiếm & Bộ lọc.
-- [wishlist.html](file:///d:/n4k1/test/gh/Tester/reports/wishlist.html): Báo cáo module Danh sách yêu thích.
-
-> **Cách mở:** Bạn có thể mở trực tiếp các file `.html` này bằng bất kỳ trình duyệt nào (Google Chrome, Microsoft Edge, Firefox) mà không cần bật web server.
-
-### 3. Xem Screenshots và Minh chứng lỗi (Error Evidence)
-- **Thư mục chụp tự động khi có lỗi từ Playwright:**  
-  Các ảnh chụp màn hình, file context lỗi và video (nếu cấu hình) khi test case bị Failed sẽ được tự động lưu trong thư mục:
-  ```text
-  test-results/
-  ```
-- **Thư mục ảnh chụp chuyên biệt của từng module:**  
-  Các module có lưu ảnh bằng kịch bản chuyên dụng (ví dụ: Customer Management) được lưu tại:
-  ```text
-  test-scripts/23130350_HuynhThiThanhTruc_TestScripts/screenshots/
-  ```
-- **Xem Trace Viewer chi tiết:**  
-  Nếu kịch bản sinh ra file trace (`trace.zip`), có thể xem lại toàn bộ quá trình bằng lệnh:
-  ```bash
-  npx playwright show-trace test-results/<tên-thư-mục-test>/trace.zip
-  ```
+- Thời gian thực thi từng bước (Step-by-step Execution Time).
+- Call log, network logs và chi tiết lỗi nếu có.
 
 ---
 *Nhóm 13 - Môn Kiểm thử phần mềm - Đại học Nông Lâm TP.HCM (NLU)*
