@@ -140,7 +140,7 @@ Mở Terminal / PowerShell và thực hiện các lệnh:
 git clone https://github.com/thanhtruc379994/Tester.git
 
 # 2. Điều hướng vào thư mục dự án
-cd Tester
+cd Tester //thư mục để project
 
 # 3. Cài đặt các Node packages
 npm install
