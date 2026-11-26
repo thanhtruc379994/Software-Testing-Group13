@@ -16,16 +16,28 @@ const test = base.extend({
             fs.mkdirSync(userDataDir, { recursive: true });
         }
 
-        const context = await chromium.launchPersistentContext(userDataDir, {
-            headless: false,
-            channel: 'chrome',
-            viewport: null,
-            args: [
-                '--disable-blink-features=AutomationControlled',
-                '--start-maximized'
-            ],
-            ignoreDefaultArgs: ['--enable-automation']
-        });
+        let context;
+        for (let attempt = 0; attempt < 5; attempt++) {
+            try {
+                context = await chromium.launchPersistentContext(userDataDir, {
+                    headless: false,
+                    channel: 'chrome',
+                    viewport: null,
+                    args: [
+                        '--disable-blink-features=AutomationControlled',
+                        '--start-maximized'
+                    ],
+                    ignoreDefaultArgs: ['--enable-automation']
+                });
+                break;
+            } catch (err) {
+                if (err.message.includes('ProcessSingleton') && attempt < 4) {
+                    await new Promise(r => setTimeout(r, 1500));
+                } else {
+                    throw err;
+                }
+            }
+        }
 
         await use(context);
         await context.close();

@@ -1,15 +1,41 @@
-const { test, expect, ensureDisplayCardExpanded } = require('./fixtures');
+const { test, expect } = require('../../fixtures');
 
-const ADMIN_URL = 'https://admin-demo.nopcommerce.com';
-const STORE_URL = 'https://demo.nopcommerce.com';
+async function ensureDisplayCardExpanded(page) {
+    const displayCard = page.locator('.card:has-text("Display"), #topic-info').first();
+    if (await displayCard.isVisible().catch(() => false)) {
+        const isCollapsed = await displayCard.locator('.card-body').isHidden().catch(() => false);
+        if (isCollapsed) {
+            await displayCard.locator('[data-card-widget="collapse"]').first().click().catch(() => {});
+            await page.waitForTimeout(300);
+        }
+    }
+}
+
+const ADMIN_URL = process.env.ADMIN_URL || process.env.BASE_URL || 'http://localhost:8080';
+const STORE_URL = process.env.BASE_URL || 'http://localhost:8080';
+
+async function handleAdminLogin(page) {
+    if (page.url().includes('login') || page.url().includes('/Login')) {
+        const emailInput = page.locator('#Email, input[name="Email"]').first();
+        if (await emailInput.isVisible().catch(() => false)) {
+            const val = await emailInput.inputValue().catch(() => '');
+            if (!val) {
+                await emailInput.fill('admin@yourstore.com');
+                await page.locator('#Password, input[name="Password"]').first().fill('admin');
+            }
+        }
+        const loginBtn = page.locator('button[type="submit"], button:has-text("Log in"), button.login-button').first();
+        if (await loginBtn.isVisible().catch(() => false)) {
+            await loginBtn.click();
+            await page.waitForLoadState('domcontentloaded').catch(() => {});
+        }
+    }
+}
 
 test.describe('Admin Content Topics View', () => {
     test('CONTENT_Topic_View_01: Kiem tra mo trang Topics (pages) tu menu Content management', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const contentMenu = page.locator('.nav-sidebar li.nav-item').filter({ hasText: 'Content management' }).locator('a.nav-link').first();
             const topicsSubmenu = page.locator('.nav-sidebar a[href*="/Admin/Topic/List"]').first();
@@ -28,10 +54,7 @@ test.describe('Admin Content Topics View', () => {
         });
     test('CONTENT_Topic_View_02: Kiem tra khung Search hien thi dung', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const keywordsInput = page.locator('#SearchKeywords, input[name="SearchKeywords"]').first();
             await expect(keywordsInput).toBeVisible({ timeout: 15000 });
@@ -45,10 +68,7 @@ test.describe('Admin Content Topics View', () => {
         });
     test('CONTENT_Topic_View_03: Kiem tra cac cot va du lieu mac dinh trong luoi', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const gridTable = page.locator('#topics-grid, table.dataTable').first();
             await expect(gridTable).toBeVisible({ timeout: 15000 });
@@ -68,10 +88,7 @@ test.describe('Admin Content Topics View', () => {
         });
     test('CONTENT_Topic_View_04: Kiem tra mac dinh hien thi tat ca topic khi chua tim kiem', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const rows = page.locator('#topics-grid tbody tr, table tbody tr');
             await expect(rows.first()).toBeVisible({ timeout: 15000 });
@@ -86,10 +103,7 @@ test.describe('Admin Content Topics View', () => {
 test.describe('Admin Content Topics Add', () => {
     test('CONTENT_Topic_Add_01: Kiem tra click Add new mo trang them topic', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const addNewBtn = page.locator('a[href*="/Admin/Topic/Create"], a:has-text("Add new")').first();
             await expect(addNewBtn).toBeVisible({ timeout: 15000 });
@@ -104,10 +118,7 @@ test.describe('Admin Content Topics Add', () => {
         });
     test('CONTENT_Topic_Add_02: Kiem tra them topic voi thong tin hop le', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/Create`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             await ensureDisplayCardExpanded(page);
 
@@ -133,10 +144,7 @@ test.describe('Admin Content Topics Add', () => {
         });
     test('CONTENT_Topic_Add_03: Kiem tra them topic bang Save and Continue Edit', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/Create`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             await ensureDisplayCardExpanded(page);
 
@@ -155,10 +163,7 @@ test.describe('Admin Content Topics Add', () => {
         });
     test('CONTENT_Topic_Add_05: Kiem tra nhap Body bang trinh soan thao', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/Create`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             await ensureDisplayCardExpanded(page);
 
@@ -187,10 +192,7 @@ test.describe('Admin Content Topics Add', () => {
         });
     test('CONTENT_Topic_Add_06: Kiem tra de trong cac truong bat buoc khi luu', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/Create`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             await ensureDisplayCardExpanded(page);
 
@@ -206,10 +208,7 @@ test.describe('Admin Content Topics Add', () => {
     test('CONTENT_Topic_Add_07: Kiem tra System name trung voi topic da co', async ({ page }) => {
         expect(true, 'Defect: Sai giá trị mong đợi theo kịch bản test (CONTENT_Topic_Add_07)').toBe(false);
             await page.goto(`${ADMIN_URL}/Admin/Topic/Create`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             await ensureDisplayCardExpanded(page);
 
@@ -228,10 +227,7 @@ test.describe('Admin Content Topics Add', () => {
 test.describe('Admin Content Topics Edit', () => {
     test('CONTENT_Topic_Edit_01: Kiem tra click Edit mo dung topic', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const editBtn = page.locator('#topics-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -255,10 +251,7 @@ test.describe('Admin Content Topics Edit', () => {
         });
     test('CONTENT_Topic_Edit_02: Kiem tra sua Title va luu', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const editBtn = page.locator('#topics-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -280,10 +273,7 @@ test.describe('Admin Content Topics Edit', () => {
     test('CONTENT_Topic_Edit_03: Kiem tra sua Body va luu', async ({ page }) => {
         expect(true, 'Defect: Sai giá trị mong đợi theo kịch bản test (CONTENT_Topic_Edit_03)').toBe(false);
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const editBtn = page.locator('#topics-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -312,10 +302,7 @@ test.describe('Admin Content Topics Edit', () => {
         });
     test('CONTENT_Topic_Edit_04: Kiem tra sua Display order va kiem tra tren danh sach', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const editBtn = page.locator('#topics-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -340,10 +327,7 @@ test.describe('Admin Content Topics Edit', () => {
 test.describe('Admin Content Topics Delete', () => {
     test('CONTENT_Topic_Delete_01: Kiem tra huy xoa topic o hop thoai xac nhan', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
             await expect(page.locator('#topics-grid, table.dataTable').first()).toBeVisible({ timeout: 15000 });
@@ -367,10 +351,7 @@ test.describe('Admin Content Topics Delete', () => {
         });
     test('CONTENT_Topic_Delete_02: Kiem tra xoa topic', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
             await expect(page.locator('#topics-grid, table.dataTable').first()).toBeVisible({ timeout: 15000 });
@@ -407,10 +388,7 @@ test.describe('Admin Content Topics Delete', () => {
 test.describe('Admin Content Topics Search', () => {
     test('CONTENT_Topic_Search_01: Kiem tra tim theo ten topic day du', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const keywordsInput = page.locator('#SearchKeywords, input[name="SearchKeywords"]').first();
             await keywordsInput.fill('ContactUs');
@@ -426,10 +404,7 @@ test.describe('Admin Content Topics Search', () => {
         });
     test('CONTENT_Topic_Search_02: Kiem tra tim theo mot phan ten topic', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const keywordsInput = page.locator('#SearchKeywords, input[name="SearchKeywords"]').first();
             await keywordsInput.fill('Contact');
@@ -444,10 +419,7 @@ test.describe('Admin Content Topics Search', () => {
         });
     test('CONTENT_Topic_Search_03: Kiem tra tim khong phan biet chu hoa / chu thuong', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const keywordsInput = page.locator('#SearchKeywords, input[name="SearchKeywords"]').first();
             const searchBtn = page.locator('#search-topics, button:has-text("Search")').first();
@@ -474,10 +446,7 @@ test.describe('Admin Content Topics Search', () => {
         });
     test('CONTENT_Topic_Search_07: Kiem tra tim bang tieng Viet co dau', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const keywordsInput = page.locator('#SearchKeywords, input[name="SearchKeywords"]').first();
             await keywordsInput.fill('Chính sách');
@@ -491,10 +460,7 @@ test.describe('Admin Content Topics Search', () => {
         });
     test('CONTENT_Topic_Search_08: Kiem tra tim topic vua tao bang ten', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const keywordsInput = page.locator('#SearchKeywords, input[name="SearchKeywords"]').first();
             await keywordsInput.fill('test_topic_01');
@@ -508,10 +474,7 @@ test.describe('Admin Content Topics Search', () => {
         });
     test('CONTENT_Topic_Search_09: Kiem tra de trong tu khoa roi click Search', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const keywordsInput = page.locator('#SearchKeywords, input[name="SearchKeywords"]').first();
             const searchBtn = page.locator('#search-topics, button:has-text("Search")').first();
@@ -531,10 +494,7 @@ test.describe('Admin Content Topics Search', () => {
         });
     test('CONTENT_Topic_Search_16: Kiem tra nhan phim Enter thay cho nut Search', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const keywordsInput = page.locator('#SearchKeywords, input[name="SearchKeywords"]').first();
             await keywordsInput.fill('Contact');
@@ -552,10 +512,7 @@ test.describe('Admin Content Topics Search', () => {
 test.describe('Admin Content Topics Grid', () => {
     test('CONTENT_Topic_Grid_01: Kiem tra thong tin tong so ban ghi va phan trang', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
             const gridTable = page.locator('#topics-grid, table.dataTable').first();
@@ -576,10 +533,7 @@ test.describe('Admin Content Topics Grid', () => {
         });
     test('CONTENT_Topic_Grid_02: Kiem tra doi so dong moi trang va chuyen trang', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
             const gridTable = page.locator('#topics-grid, table.dataTable').first();
@@ -624,10 +578,7 @@ test.describe('Admin Content Topics Grid', () => {
 test.describe('Admin Content Topics Setting', () => {
     test('CONTENT_Topic_Setting_01: Kiem tra tat Published', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const editBtn = page.locator('#topics-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -650,10 +601,7 @@ test.describe('Admin Content Topics Setting', () => {
         });
     test('CONTENT_Topic_Setting_04: Kiem tra bat Include in sitemap', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const editBtn = page.locator('#topics-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -680,10 +628,7 @@ test.describe('Admin Content Topics Setting', () => {
         });
     test('CONTENT_Topic_Setting_07: Kiem tra bat Include in top menu', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             const editBtn = page.locator('#topics-grid a:has-text("Edit"), table.dataTable a:has-text("Edit")').first();
             await expect(editBtn).toBeVisible({ timeout: 15000 });
@@ -711,10 +656,7 @@ test.describe('Admin Content Topics Setting', () => {
 test.describe('Admin Content Topics Security', () => {
     test('CONTENT_Topic_Security_01: Kiem tra truy cap trang Topics pages khi chua dang nhap admin', async ({ page }) => {
             await page.goto(`${ADMIN_URL}/Admin/Topic/List`, { waitUntil: 'domcontentloaded' });
-            if (page.url().includes('login')) {
-                await page.locator('button[type="submit"], button:has-text("Log in")').click();
-                await page.waitForLoadState('domcontentloaded');
-            }
+            await handleAdminLogin(page);
 
             await page.locator('.throbber').waitFor({ state: 'hidden', timeout: 15000 }).catch(() => {});
 

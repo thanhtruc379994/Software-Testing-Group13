@@ -1,4 +1,6 @@
 const { test, expect } = require('../../fixtures');
+const path = require('path');
+const fs = require('fs');
 const MUTATE = process.env.RUN_MUTATIONS === '1';
 const fixture = (key) => process.env[key];
 
@@ -33,7 +35,7 @@ async function login(page) {
 
     if (await page.locator('#Email').isVisible({ timeout: 3000 }).catch(() => false)) {
         await page.locator('#Email').fill('admin@yourstore.com');
-        await page.locator('#Password').fill('Doanga123@');
+        await page.locator('#Password').fill(process.env.ADMIN_PASSWORD || 'Admin@123');
 
         await page.locator('button.login-button, button[type="submit"]:has-text("Log in")').first().click();
 
@@ -70,8 +72,10 @@ async function grid(page, section = 'gc') {
     // Đợi trạng thái AJAX DataTable tải xong nếu có throbber
     await page.locator(`${ids[section].grid}_processing`).waitFor({ state: 'detached', timeout: 10000 }).catch(() => { });
 
+    const screenshotDir = path.resolve(process.cwd(), 'screenshots', 'giftcards');
+    if (!fs.existsSync(screenshotDir)) fs.mkdirSync(screenshotDir, { recursive: true });
     await page.screenshot({
-        path: 'giftcards-debug.png',
+        path: path.join(screenshotDir, 'giftcards-debug.png'),
         fullPage: true
     });
 }

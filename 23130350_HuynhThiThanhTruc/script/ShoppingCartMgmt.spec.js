@@ -36,7 +36,7 @@ test.describe('Kiểm thử Giỏ hàng (Shopping Cart - Storefront) - Đủ 28 
 
   // Tự động chụp màn hình cho từng test case lưu vào thư mục screenshots/ShoppingCart
   test.afterEach(async ({ page }, testInfo) => {
-    const screenshotDir = path.resolve(__dirname, 'screenshots', 'ShoppingCart');
+    const screenshotDir = path.resolve(process.cwd(), 'screenshots', 'ShoppingCart');
     if (!fs.existsSync(screenshotDir)) {
       fs.mkdirSync(screenshotDir, { recursive: true });
     }
@@ -161,7 +161,7 @@ test.describe('Kiểm thử Giỏ hàng (Shopping Cart - Storefront) - Đủ 28 
   });
 
   // 9. cart_upd_04: Kiểm tra cập nhật số lượng sai định dạng [PASS]
-  test('cart_upd_04: Xử lý không nhận ký tự chữ khi nhập số lượng sai định dạng (Qty = 'abc') [PASS]', async ({ page }) => {
+  test('cart_upd_04: Xử lý không nhận ký tự chữ khi nhập số lượng sai định dạng (Qty = abc) [PASS]', async ({ page }) => {
     await ensureItemInCart(page);
     const qtyInput = page.locator('input.qty-input').first();
     await qtyInput.fill('abc');
@@ -224,7 +224,7 @@ test.describe('Kiểm thử Giỏ hàng (Shopping Cart - Storefront) - Đủ 28 
   });
 
   // 15. cart_del_02: Kiểm tra xóa sản phẩm cuối cùng [PASS]
-  test('cart_del_02: Hiển thị thông báo 'Your Shopping Cart is empty' khi xóa sản phẩm cuối cùng [PASS]', async ({ page }) => {
+  test('cart_del_02: Hiển thị thông báo Your Shopping Cart is empty khi xóa sản phẩm cuối cùng [PASS]', async ({ page }) => {
     await page.goto('http://localhost:8080/cart');
     await handleCloudflare(page);
 

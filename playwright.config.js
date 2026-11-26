@@ -1,8 +1,13 @@
 const { defineConfig } = require('@playwright/test');
+const path = require('path');
+
+const htmlOutputFolder = process.env.PLAYWRIGHT_HTML_REPORT || 'playwright-report';
 
 module.exports = defineConfig({
     timeout: 30000,
+    outputDir: path.resolve(__dirname, 'screenshots', 'failures'),
     use: {
+        baseURL: process.env.BASE_URL || 'http://localhost:8080',
         headless: false,
         channel: 'chrome',
         actionTimeout: 15000,
@@ -14,6 +19,9 @@ module.exports = defineConfig({
     fullyParallel: false,
     reporter: [
         ['list'],
-        ['html', { open: 'always' }] // Tự động bật trình duyệt hiển thị báo cáo ngay khi chạy xong
+        ['html', { 
+            outputFolder: path.resolve(__dirname, htmlOutputFolder), 
+            open: process.env.PLAYWRIGHT_HTML_OPEN || 'never' 
+        }]
     ]
 });

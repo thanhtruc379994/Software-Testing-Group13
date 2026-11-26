@@ -1,9 +1,9 @@
 // @ts-check
-const { test, expect } = require('../fixtures');
+const { test, expect } = require('../../fixtures');
 const { gotoAffiliates, resetSearchAffiliates } = require('./admin_helpers');
 
 // Biến đường dẫn web (Base URL)
-const BASE_URL = 'https://admin-demo.nopcommerce.com';
+const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 
 test.describe('Kiểm thử Admin - Promotions - Affiliates (30 Test Cases theo Excel)', () => {
 
@@ -72,16 +72,19 @@ test.describe('Kiểm thử Admin - Promotions - Affiliates (30 Test Cases theo 
     await gotoAffiliates(page);
     await ensureSearchCardOpen(page);
     // DEFECT: Khối tìm kiếm Affiliates thiếu tooltip giải thích chi tiết cho trường Friendly URL name
-    const friendlyTooltip = page.locator('.label-wrapper:has-text("Friendly URL name") .ico-help');
-    await expect(friendlyTooltip, 'Defect: Thiếu biểu tượng tooltip (?) hướng dẫn cho Friendly URL name').toBeVisible({ timeout: 1000 });
+    const friendlyTooltip = page.locator('.label-wrapper:has-text("Friendly URL name") .tooltip-content, .label-wrapper:has-text("Friendly URL name") [role="tooltip"]');
+    await expect(friendlyTooltip, 'Defect: Thiếu nội dung tooltip (?) giải thích chi tiết cho trường Friendly URL name').toBeVisible({ timeout: 1000 });
   });
 
   test('PROMO_AFF_View_07: Kiểm tra các cột của bảng danh sách', async ({ page }) => {
     await gotoAffiliates(page);
-    await expect(page.locator('#affiliates-grid th:has-text("First name")')).toBeVisible();
-    await expect(page.locator('#affiliates-grid th:has-text("Last name")')).toBeVisible();
-    await expect(page.locator('#affiliates-grid th:has-text("Active")')).toBeVisible();
-    await expect(page.locator('#affiliates-grid th:has-text("Edit")')).toBeVisible();
+    const grid = page.locator('#affiliates-grid').first();
+    await expect(grid).toBeVisible();
+    const headersText = await grid.locator('thead').first().innerText();
+    expect(headersText).toContain('First name');
+    expect(headersText).toContain('Last name');
+    expect(headersText).toContain('Active');
+    expect(headersText).toContain('Edit');
   });
 
   test('PROMO_AFF_View_08: Kiểm tra layout trang trên desktop và mobile', async ({ page }) => {
