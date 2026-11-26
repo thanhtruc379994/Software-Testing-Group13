@@ -16,8 +16,7 @@ Bộ kiểm thử bao gồm cả kiểm thử phía quản trị viên (**Admin 
 - **GitHub Repository URL:** [https://github.com/thanhtruc379994/Tester](https://github.com/thanhtruc379994/Tester)
 - **Function Analysis URL:** [https://docs.google.com/document/d/1qhighUkc086JAuzBfUTuBbc6M3qhog14FgjCn0Mwd4c/edit?usp=sharing](https://docs.google.com/document/d/1qhighUkc086JAuzBfUTuBbc6M3qhog14FgjCn0Mwd4c/edit?usp=sharing)
 - **Google Sheets – Test Cases URL:** [https://docs.google.com/spreadsheets/d/1BDj2GDrRwo57Pd_PU2GgXwDwqKWTOI15RB8Ds-x5Iqw/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1BDj2GDrRwo57Pd_PU2GgXwDwqKWTOI15RB8Ds-x5Iqw/edit?usp=sharing)
-- **Google Sheets – Task Assignment & Progress URL:** [https://docs.google.com/spreadsheets/d/1gtRr_YCvtCsKLBbO4SRrAKBNgwNqN8hV3cpMLKdm5ew/edit?gid=2009482914#gid=2009482914](https://docs.google.com/spreadsheets/d/1gtRr_YCvtCsKLBbO4SRrAKBNgwNqN8hV3cpMLKdm5ew/edit?gid=2009482914#gid=2009482914)  
-  *(Kế hoạch công việc: [Google Docs Tasks](https://docs.google.com/document/d/1xjgDQCwnMpTTQ2oFeRyUmuW6jyUd531HSVvjO9PTbmY/edit?tab=t.0))*
+- **Google Sheets – Task Assignment & Progress URL:** [https://docs.google.com/spreadsheets/d/1pCoccrbKkJfXaAXW1ui2W3o84JUjxQJSs8s5MQHpoPg/edit?usp=sharing]
 - **Google Sheets – Defect List URL:** [https://docs.google.com/spreadsheets/d/1fIbgGFcDGK1-eBBoK4P1DFotBlaJpOoryl_POzfWrok/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1fIbgGFcDGK1-eBBoK4P1DFotBlaJpOoryl_POzfWrok/edit?usp=sharing)
 - **Google Slides – Final Presentation URL:** *Đợi bài cá nhân*
 - **Google Drive – Test Report & Evidence URL:** [https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing](https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing)
