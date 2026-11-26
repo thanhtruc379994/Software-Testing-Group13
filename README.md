@@ -12,6 +12,17 @@ Dự án này là đồ án thực hành môn Kiểm thử phần mềm, tập t
 
 Bộ kiểm thử bao gồm cả kiểm thử phía quản trị viên (**Admin Dashboard**) và phía người dùng cuối (**Customer/Storefront**), đảm bảo tính đúng đắn của các quy trình nghiệp vụ chính như quản lý danh mục, sản phẩm, đơn hàng, giao hàng, khách hàng, chương trình khuyến mãi, bài viết nội dung và giỏ hàng.
 
+### Các liên kết tài liệu dự án
+- **GitHub Repository URL:** [https://github.com/thanhtruc379994/Tester](https://github.com/thanhtruc379994/Tester)
+- **Function Analysis URL:** [https://docs.google.com/document/d/1qhighUkc086JAuzBfUTuBbc6M3qhog14FgjCn0Mwd4c/edit?usp=sharing](https://docs.google.com/document/d/1qhighUkc086JAuzBfUTuBbc6M3qhog14FgjCn0Mwd4c/edit?usp=sharing)
+- **Google Sheets – Test Cases URL:** [https://docs.google.com/spreadsheets/d/1BDj2GDrRwo57Pd_PU2GgXwDwqKWTOI15RB8Ds-x5Iqw/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1BDj2GDrRwo57Pd_PU2GgXwDwqKWTOI15RB8Ds-x5Iqw/edit?usp=sharing)
+- **Google Sheets – Task Assignment & Progress URL:** [https://docs.google.com/spreadsheets/d/1gtRr_YCvtCsKLBbO4SRrAKBNgwNqN8hV3cpMLKdm5ew/edit?gid=2009482914#gid=2009482914](https://docs.google.com/spreadsheets/d/1gtRr_YCvtCsKLBbO4SRrAKBNgwNqN8hV3cpMLKdm5ew/edit?gid=2009482914#gid=2009482914)  
+  *(Kế hoạch công việc: [Google Docs Tasks](https://docs.google.com/document/d/1xjgDQCwnMpTTQ2oFeRyUmuW6jyUd531HSVvjO9PTbmY/edit?tab=t.0))*
+- **Google Sheets – Defect List URL:** [https://docs.google.com/spreadsheets/d/1fIbgGFcDGK1-eBBoK4P1DFotBlaJpOoryl_POzfWrok/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1fIbgGFcDGK1-eBBoK4P1DFotBlaJpOoryl_POzfWrok/edit?usp=sharing)
+- **Google Slides – Final Presentation URL:** *Đợi bài cá nhân*
+- **Google Drive – Test Report & Evidence URL:** [https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing](https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing)
+
+---
 
 ## 2. Website được kiểm thử (Target System Under Test)
 
@@ -332,4 +343,4 @@ Trong thư mục `reports/` có sẵn các file HTML báo cáo độc lập cho 
   ```
 
 ---
-*© 2026 - Nhóm 13 - Môn Kiểm thử phần mềm - Đại học Nông Lâm TP.HCM (NLU)*
+*Nhóm 13 - Môn Kiểm thử phần mềm - Đại học Nông Lâm TP.HCM (NLU)*
