@@ -46,11 +46,11 @@ Hệ thống được kiểm thử là nền tảng thương mại điện tử 
 
 | STT | Họ và Tên | Mã số sinh viên (MSSV) | Email Sinh viên | GitHub Username | Module / Chức năng phụ trách |
 |:---:|:---|:---:|:---|:---:|:---|
-| 1 | **Trương Cao Đoàn** | 23130064 | 23130064@st.hcmuaf.edu.vn | [@25D04N](https://github.com/25D04N) | **Sales & Orders Management**: Quản lý Đơn hàng (`orders`), Quản lý Giao hàng/Vận chuyển (`shipments`), Quản lý Thẻ quà tặng (`giftcards`). |
-| 2 | **Nguyễn Hữu Duy** | 23130075 | 23130075@st.hcmuaf.edu.vn | [@DuyHuuNguyen](https://github.com/DuyHuuNguyen) | **Catalog Management**: Quản lý Sản phẩm (`admin_product`), Danh mục (`admin_categories`), Nhà sản xuất/Thương hiệu (`admin_manufacturer`). |
-| 3 | **Mạc Chí Nguyên** | 23130211 | 23130211@st.hcmuaf.edu.vn | [@macchinguyen123](https://github.com/macchinguyen123) | **Content & User Search**: Quản lý Menu nội dung (`admin-content-menus`), Quản lý Topics/Trang tĩnh (`admin-content-topics`), Tìm kiếm & Lọc sản phẩm phía người dùng (`user-search-filter`). |
-| 4 | **Lê Hữu Phước** | 23130251 | 23130251@st.hcmuaf.edu.vn | [@LeeHuuPhuoc](https://github.com/LeeHuuPhuoc) | **Promotions & Wishlist**: Quản lý Tiếp thị liên kết (`affiliates`), Quản lý Khuyến mãi/Giảm giá (`promotion`), Danh sách yêu thích phía người dùng (`wishlist`). |
-| 5 | **Huỳnh Thị Thanh Trúc (Trưởng Nhóm)** | 23130350 | 23130350@st.hcmuaf.edu.vn | [@thanhtruc379994](https://github.com/thanhtruc379994) | **Customers & Cart**: Quản lý Thông tin khách hàng (`CustomerInfoMgmt`), Quản lý Vai trò khách hàng (`CustomerRoleMgmt`), Quản lý Giỏ hàng (`ShoppingCartMgmt`). |
+| 1 | **Huỳnh Thị Thanh Trúc (Trưởng Nhóm)** | 23130350 | 23130350@st.hcmuaf.edu.vn | [@thanhtruc379994](https://github.com/thanhtruc379994) | **Customers & Cart**: Quản lý Thông tin khách hàng (`CustomerInfoMgmt`), Quản lý Vai trò khách hàng (`CustomerRoleMgmt`), Quản lý Giỏ hàng (`ShoppingCartMgmt`). |
+| 2 | **Trương Cao Đoàn** | 23130064 | 23130064@st.hcmuaf.edu.vn | [@25D04N](https://github.com/25D04N) | **Sales & Orders Management**: Quản lý Đơn hàng (`orders`), Quản lý Giao hàng/Vận chuyển (`shipments`), Quản lý Thẻ quà tặng (`giftcards`). |
+| 3 | **Nguyễn Hữu Duy** | 23130075 | 23130075@st.hcmuaf.edu.vn | [@DuyHuuNguyen](https://github.com/DuyHuuNguyen) | **Catalog Management**: Quản lý Sản phẩm (`admin_product`), Danh mục (`admin_categories`), Nhà sản xuất/Thương hiệu (`admin_manufacturer`). |
+| 4 | **Mạc Chí Nguyên** | 23130211 | 23130211@st.hcmuaf.edu.vn | [@macchinguyen123](https://github.com/macchinguyen123) | **Content & User Search**: Quản lý Menu nội dung (`admin-content-menus`), Quản lý Topics/Trang tĩnh (`admin-content-topics`), Tìm kiếm & Lọc sản phẩm phía người dùng (`user-search-filter`). |
+| 5 | **Lê Hữu Phước** | 23130251 | 23130251@st.hcmuaf.edu.vn | [@LeeHuuPhuoc](https://github.com/LeeHuuPhuoc) | **Promotions & Wishlist**: Quản lý Tiếp thị liên kết (`affiliates`), Quản lý Khuyến mãi/Giảm giá (`promotion`), Danh sách yêu thích phía người dùng (`wishlist`). |
 
 ---
 
@@ -173,21 +173,21 @@ Trình duyệt Chrome sẽ tự động bật lên. Bạn chỉ cần tick chọ
 
 Bạn có thể chạy kiểm thử cho từng thành viên bằng cách chỉ định đường dẫn thư mục hoặc file `.spec.js` tương ứng.
 
-### 1. Thành viên: Trương Cao Đoàn (23130064)
+### 1. Thành viên: Huỳnh Thị Thanh Trúc (23130350)
 - **Chạy toàn bộ kịch bản của thành viên:**
   ```bash
-  npx playwright test test-scripts/23130064_TruongCaoDoan_TestScripts/
+  npx playwright test test-scripts/23130350_HuynhThiThanhTruc_TestScripts/
   ```
 - **Chạy từng module cụ thể:**
   ```bash
-  # Kiểm thử Quản lý Đơn hàng (Orders)
-  npx playwright test test-scripts/23130064_TruongCaoDoan_TestScripts/orders.spec.js
+  # Kiểm thử Quản lý Thông tin Khách hàng (Customer Info)
+  npx playwright test test-scripts/23130350_HuynhThiThanhTruc_TestScripts/CustomerInfoMgmt.spec.js
 
-  # Kiểm thử Quản lý Giao hàng (Shipments)
-  npx playwright test test-scripts/23130064_TruongCaoDoan_TestScripts/shipments.spec.js
+  # Kiểm thử Quản lý Vai trò Khách hàng (Customer Roles)
+  npx playwright test test-scripts/23130350_HuynhThiThanhTruc_TestScripts/CustomerRoleMgmt.spec.js
 
-  # Kiểm thử Quản lý Thẻ quà tặng (Gift Cards)
-  npx playwright test test-scripts/23130064_TruongCaoDoan_TestScripts/giftcards.spec.js
+  # Kiểm thử Quản lý Giỏ hàng (Shopping Cart)
+  npx playwright test test-scripts/23130350_HuynhThiThanhTruc_TestScripts/ShoppingCartMgmt.spec.js
   ```
 
 ---
@@ -249,24 +249,25 @@ Bạn có thể chạy kiểm thử cho từng thành viên bằng cách chỉ �
 
 ---
 
-### 5. Thành viên: Huỳnh Thị Thanh Trúc (23130350)
+### 5. Thành viên: Trương Cao Đoàn (23130064)
 - **Chạy toàn bộ kịch bản của thành viên:**
   ```bash
-  npx playwright test test-scripts/23130350_HuynhThiThanhTruc_TestScripts/
+  npx playwright test test-scripts/23130064_TruongCaoDoan_TestScripts/
   ```
 - **Chạy từng module cụ thể:**
   ```bash
-  # Kiểm thử Quản lý Thông tin Khách hàng (Customer Info)
-  npx playwright test test-scripts/23130350_HuynhThiThanhTruc_TestScripts/CustomerInfoMgmt.spec.js
+  # Kiểm thử Quản lý Đơn hàng (Orders)
+  npx playwright test test-scripts/23130064_TruongCaoDoan_TestScripts/orders.spec.js
 
-  # Kiểm thử Quản lý Vai trò Khách hàng (Customer Roles)
-  npx playwright test test-scripts/23130350_HuynhThiThanhTruc_TestScripts/CustomerRoleMgmt.spec.js
+  # Kiểm thử Quản lý Giao hàng (Shipments)
+  npx playwright test test-scripts/23130064_TruongCaoDoan_TestScripts/shipments.spec.js
 
-  # Kiểm thử Quản lý Giỏ hàng (Shopping Cart)
-  npx playwright test test-scripts/23130350_HuynhThiThanhTruc_TestScripts/ShoppingCartMgmt.spec.js
+  # Kiểm thử Quản lý Thẻ quà tặng (Gift Cards)
+  npx playwright test test-scripts/23130064_TruongCaoDoan_TestScripts/giftcards.spec.js
   ```
 
 ---
+
 
 ## 8. Hướng dẫn chạy toàn bộ Test Suite (Full Test Suite Execution)
 
