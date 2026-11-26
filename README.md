@@ -312,7 +312,6 @@ Toàn bộ hình ảnh Screenshots minh chứng kết quả chạy kiểm thử 
 Thư mục trên Google Drive được phân chia theo từng thành viên và module tương ứng:
 - Thư mục Screenshots minh chứng cho từng test case của từng thành viên.
 - Các file báo cáo kết quả kiểm thử (Test Reports dạng HTML và PDF).
-- File tổng hợp danh sách lỗi (Defect Report) và dữ liệu liên quan.
 
 ### 2. Xem các file Test Report tĩnh theo từng Phase (Thư mục `reports/`)
 Dự án đã tích hợp sẵn các file báo cáo kết quả HTML tĩnh theo 5 Phase kiểm thử trong thư mục `reports/`:
