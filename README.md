@@ -12,15 +12,6 @@ Dự án này là đồ án thực hành môn Kiểm thử phần mềm, tập t
 
 Bộ kiểm thử bao gồm cả kiểm thử phía quản trị viên (**Admin Dashboard**) và phía người dùng cuối (**Customer/Storefront**), đảm bảo tính đúng đắn của các quy trình nghiệp vụ chính như quản lý danh mục, sản phẩm, đơn hàng, giao hàng, khách hàng, chương trình khuyến mãi, bài viết nội dung và giỏ hàng.
 
-### 🔗 Các liên kết tài liệu dự án
-- **GitHub Repository:** [https://github.com/thanhtruc379994/Tester](https://github.com/thanhtruc379994/Tester)
-- **Phân tích chức năng (Function Analysis):** [Google Docs - Function Analysis](https://docs.google.com/document/d/1qhighUkc086JAuzBfUTuBbc6M3qhog14FgjCn0Mwd4c/edit?usp=sharing)
-- **Bảng kịch bản kiểm thử (Test Cases):** [Google Sheets - Test Cases](https://docs.google.com/spreadsheets/d/1BDj2GDrRwo57Pd_PU2GgXwDwqKWTOI15RB8Ds-x5Iqw/edit?usp=sharing)
-- **Bảng phân công & Tiến độ (Task Assignment & Progress):** [Google Sheets - Tasks & Progress](https://docs.google.com/spreadsheets/d/1gtRr_YCvtCsKLBbO4SRrAKBNgwNqN8hV3cpMLKdm5ew/edit?gid=2009482914#gid=2009482914)
-- **Báo cáo lỗi (Defect List):** [Google Sheets - Defect List](https://docs.google.com/spreadsheets/d/1J455YL6Vn_J-vmkA4QUgUI88vBuaaeWJ/edit?usp=sharing&ouid=110987605027688692150&rtpof=true&sd=true)
-- **Báo cáo kiểm thử & Minh chứng (Test Report & Evidence):** [Google Drive - Evidence Folder](https://drive.google.com/drive/folders/1R86osQ2socVUL-MMhVIgLSae8S_RyIQ_?usp=sharing)
-
----
 
 ## 🌐 2. Website được kiểm thử (Target System Under Test)
 

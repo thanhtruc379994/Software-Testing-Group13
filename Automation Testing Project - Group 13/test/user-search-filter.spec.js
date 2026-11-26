@@ -1,6 +1,6 @@
 const { test, expect } = require('../../fixtures');
 
-const STORE_URL = 'https://demo.nopcommerce.com';
+const STORE_URL = process.env.BASE_URL || 'http://localhost:8080';
 
 test.describe('Search View', () => {
     test('SEARCH_View_01: Kiem tra mo trang chu va quan sat o Search store tren header', async ({ page }) => {

@@ -17,7 +17,7 @@ try {
 console.log('Đang mở Google Chrome gốc của máy tính...');
 console.log('Profile lưu tại:', profileDir);
 
-const command = `start "" "${chromePath}" --user-data-dir="${profileDir}" "https://admin-demo.nopcommerce.com/login?ReturnUrl=%2FAdmin"`;
+const command = `start "" "${chromePath}" --user-data-dir="${profileDir}" "http://localhost:8080/login?ReturnUrl=%2FAdmin"`;
 execSync(command, { shell: 'cmd.exe' });
 
 console.log('\n==============================================================');

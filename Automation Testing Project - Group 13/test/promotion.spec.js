@@ -1,9 +1,9 @@
 // @ts-check
 const { test, expect } = require('../../fixtures');
-const { loginAdmin, gotoDiscounts, fillDate, resetSearch } = require('../admin_helpers');
+const { loginAdmin, gotoDiscounts, fillDate, resetSearch } = require('./admin_helpers');
 
 // Biến đường dẫn web (Base URL)
-const BASE_URL = 'https://admin-demo.nopcommerce.com';
+const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 
 test.describe('Kiểm thử Admin - Promotions - Discounts (30 Test Cases theo Excel)', () => {
 

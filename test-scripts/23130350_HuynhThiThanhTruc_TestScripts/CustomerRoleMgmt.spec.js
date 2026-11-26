@@ -19,7 +19,7 @@ async function goToCustomerRoleList(page) {
     const emailInput = page.locator('#Email');
     if (await emailInput.isVisible({ timeout: 10000 }).catch(() => false)) {
       await emailInput.fill('admin@yourstore.com');
-      await page.fill('#Password', '@Truc27102005');
+      await page.fill('#Password', process.env.ADMIN_PASSWORD || 'Admin@123');
       await page.locator('button.login-button').click();
       await page.waitForLoadState('networkidle');
     }
@@ -43,7 +43,7 @@ test.describe('Quản lý Vai trò Khách hàng (Customer Roles) - Đủ 20 Test
 
   // Tự động chụp màn hình cho từng test case (dù PASS hay FAILED) lưu vào thư mục riêng screenshots/CustomerRole
   test.afterEach(async ({ page }, testInfo) => {
-    const screenshotDir = path.resolve(__dirname, 'screenshots', 'CustomerRole');
+    const screenshotDir = path.resolve(process.cwd(), 'screenshots', 'CustomerRole');
     if (!fs.existsSync(screenshotDir)) {
       fs.mkdirSync(screenshotDir, { recursive: true });
     }

@@ -36,7 +36,7 @@ test.describe('Kiểm thử Giỏ hàng (Shopping Cart - Storefront) - Đủ 28 
 
   // Tự động chụp màn hình cho từng test case lưu vào thư mục screenshots/ShoppingCart
   test.afterEach(async ({ page }, testInfo) => {
-    const screenshotDir = path.resolve(__dirname, 'screenshots', 'ShoppingCart');
+    const screenshotDir = path.resolve(process.cwd(), 'screenshots', 'ShoppingCart');
     if (!fs.existsSync(screenshotDir)) {
       fs.mkdirSync(screenshotDir, { recursive: true });
     }
@@ -392,7 +392,7 @@ test.describe('Kiểm thử Giỏ hàng (Shopping Cart - Storefront) - Đủ 28 
     const emailInput = page.locator('#Email');
     if (await emailInput.isVisible({ timeout: 3000 }).catch(() => false)) {
       await emailInput.fill('admin@yourstore.com');
-      await page.fill('#Password', '@Truc27102005');
+      await page.fill('#Password', process.env.ADMIN_PASSWORD || 'Admin@123');
       await page.locator('button.login-button').click();
       await page.waitForLoadState('networkidle');
     }
