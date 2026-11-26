@@ -46,7 +46,7 @@ Hệ thống được kiểm thử là nền tảng thương mại điện tử 
 
 | STT | Họ và Tên | Mã số sinh viên (MSSV) | Email Sinh viên | GitHub Username | Module / Chức năng phụ trách |
 |:---:|:---|:---:|:---|:---:|:---|
-| 1 | **Trương Cao Doãn** | 23130064 | 23130064@st.hcmuaf.edu.vn | [@D04N](https://github.com/D04N) | **Sales & Orders Management**: Quản lý Đơn hàng (`orders`), Quản lý Giao hàng/Vận chuyển (`shipments`), Quản lý Thẻ quà tặng (`giftcards`). |
+| 1 | **Trương Cao Doãn** | 23130064 | 23130064@st.hcmuaf.edu.vn | [@25D04N](https://github.com/25D04N) | **Sales & Orders Management**: Quản lý Đơn hàng (`orders`), Quản lý Giao hàng/Vận chuyển (`shipments`), Quản lý Thẻ quà tặng (`giftcards`). |
 | 2 | **Nguyễn Hữu Duy** | 23130075 | 23130075@st.hcmuaf.edu.vn | [@DuyHuuNguyen](https://github.com/DuyHuuNguyen) | **Catalog Management**: Quản lý Sản phẩm (`admin_product`), Danh mục (`admin_categories`), Nhà sản xuất/Thương hiệu (`admin_manufacturer`). |
 | 3 | **Mạc Chí Nguyên** | 23130211 | 23130211@st.hcmuaf.edu.vn | [@macchinguyen123](https://github.com/macchinguyen123) | **Content & User Search**: Quản lý Menu nội dung (`admin-content-menus`), Quản lý Topics/Trang tĩnh (`admin-content-topics`), Tìm kiếm & Lọc sản phẩm phía người dùng (`user-search-filter`). |
 | 4 | **Lê Hữu Phước** | 23130251 | 23130251@st.hcmuaf.edu.vn | [@LeeHuuPhuoc](https://github.com/LeeHuuPhuoc) | **Promotions & Wishlist**: Quản lý Tiếp thị liên kết (`affiliates`), Quản lý Khuyến mãi/Giảm giá (`promotion`), Danh sách yêu thích phía người dùng (`wishlist`). |
